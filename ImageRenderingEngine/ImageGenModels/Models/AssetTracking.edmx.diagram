@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d9a88e86eaa44b22aa002a2ca1c6985c" Name="Diagram1">
+        <EntityTypeShape EntityType="AssetTrackingModel.LabelTemplate" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssetTrackingModel.LabelTemplateType" Width="1.5" PointX="0.75" PointY="2" IsExpanded="true" />
+        <AssociationConnector Association="AssetTrackingModel.FK__LabelTemp__FK_ID__4C8B54C9" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="AssetTrackingModel.AssetTypeDynamicAttribute" Width="1.5" PointX="5.5" PointY="2.5" />
+        <EntityTypeShape EntityType="AssetTrackingModel.AssetTypeDynamicAttributeValue" Width="1.5" PointX="8" PointY="1.75" />
+        <AssociationConnector Association="AssetTrackingModel.FK_AssetTypeDynamicAttributeValues_AssetTypeDynamicAttributes" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

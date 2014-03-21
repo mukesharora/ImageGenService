@@ -1,0 +1,94 @@
+Omni-ID Middleware version 1.01.1029.0	
+10/29/13
+
+Current Limitations:
+1. Install tested with installs to C: drive. Installs to other drives may work but 
+   would require manual changes to the scripts in the OmniAppInsert.sql file that have 
+   path names in them.
+2. Installs to 32-bit operating systems would require manual changes to the scripts in the 
+   OmniAppInsert.sql file that have path names in them.
+
+   
+Prerequisites:
+1. SQL Server 2008 R2 any edition or SQL Server 2008 express
+
+
+1. Uninstall existing Omni-Middleware installation through control panel add/remove programs.
+
+2. Turn Windows UAC (User Account Control) to off or its lowest level.
+
+3. Firewall, open up port for CALCMan.
+
+4. Optional. Install "Bonjour for Windows" if Multicast DNS support for the Omni Impinj Reader app is desired.
+
+5. Install "Omni-IDMiddlewareSetup_xyz.exe", which installs the following components:
+	+---Program Files (x86)
+	    +---Omni-ID
+	        +---CALC Manager
+	        +---Middleware
+	        |   +---bin			// Omni-Middle .NET assemblies
+	        |   +---config_samples		// PrintQueues.txt
+	        |   +---dbScripts		// Initial scripts for database setup
+	        |   +---docs			// assorted Middleware documentation
+	        |   \---sample_source
+	        +---Omni Image Generator
+	        +---Omni Import Connection String
+	        +---OmniImpinjReader
+	        +---OmniLogServer
+	        \---OmniSysSchedConsole
+
+6. Execute the following database scripts in this order: [C:\Program Files (x86)\Omni-ID\Middleware\dbScripts]
+   NOTE: This step is only necessary if:
+   a) You have a version of Omni-ID Middleware older then 1.01.1022.0 (10/22/13). Delete CALCMan database prior to executing scripts.
+   b) or a new install.
+	CreateCALCManDB.sql
+	CreateCALCManStoredProcedures.sql
+	CreateCALCManTables.sql
+	InsertCALCManDB.sql
+	OmniAppCreate.sql
+	OmniAppInsert.sql
+   The scripts should completed successfully with no errors.
+
+7. Modify the C:\Program Files (x86)\OMNI-ID\CALC Manager\CALCManService.exe.config file. Set the correct database connection string in the "CALCManEntities" key.
+
+8. Modify the C:\Program Files (x86)\OMNI-ID\CALC Manager\CALCManService.exe.config file. Set port in the following line:
+	<add key="CALCManServiceHostName" value="http://localhost:3000" />
+to match the value that is set in the CALC configuration. In the above example the port is set to 3000. 
+
+9. From the start menu, run the "Omni Import Connection String" program. Type your database connection string into the “New Connection string” text box”, and press the Import button. The program should report a success status. An example database connection string is (no quotes): "Data Source=.;Initial Catalog=CALCMan;Integrated Security=True;"
+
+10. Message Queue definition file.
+    Copy the C:\Program Files (x86)\Omni-ID\Middleware\config_samples\QueueNames.txt file to the "C:\programdata\Omni-id\Middleware\Config" folder. Modify file as necessary to account for multiple Middleware clients.
+
+11. Reboot computer, to start services and startup programs.
+
+12. Special OmniImpinj app setup instructions:
+    a. Click the "Configure Reader Host" button.
+    b. Press OK on the "No Interface Settings Found" dialog.
+    c. Press "Save Changes" on the "Configure / Create Reader Host Configurations"
+    d. Setup a new reader configuration, press "Configure Readers", then Press "Add New Reader"
+
+
+-------------------------------------------------------------------------------------------
+10/29/13 Version 1.01.1029.0
+o Added clientGuid to OmniMiddlewareClient constructor. Queue names are no longer claimed but 
+  still must be listed in the QueuNames.txt file and CALCMan database.
+
+-------------------------------------------------------------------------------------------
+10/28/13 Version 1.01.1028.0
+o OmniImpinj App: Removed "RestartReader" from GUI 
+o OmniImpinj App:  Removed "Refresh Readers" button, reader list is now automatically refreshed when readers added/deleted/or changed 
+o OmniImpinj App: Changed wait cursor logic on startup and on return from configure readers dialog
+o MiddlewareAPI: Added new 0 parameter constructor. Updated API doc. 
+o Installer: Fixed Middleware build scripts to properly inject version for CALCMan and ImageGen service.
+o Middleware API. Updated API doc. Updated system block diagram section to include actual software component names.
+o Middleware API. Updated API doc. Updated OmniImageUpdateCommand to include CoralType field.
+o Middleware API. Updated API doc. Updated OmniRFIDDetectionMessage fields.
+o Middleware API. Updated API doc. Marked some features not implemented.
+
+-------------------------------------------------------------------------------------------
+10/22/13 Version 1.01.1022.0
+
+* Modified OmniAppInsert.sql, removed all sample Impinj reader definitions
+-------------------------------------------------------------------------------------------
+ 

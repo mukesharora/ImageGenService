@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project
+    xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+    ToolsVersion="4.0"
+    DefaultTargets="MiddlewareLibrariesBuildAll">
+		
+	<UsingTask AssemblyFile="$(taskDllFolder)\MSBuild.Community.Tasks.dll" TaskName="FileUpdate" />
+	
+	<Target Name="MiddlewareLibrariesBuildAll" DependsOnTargets="UpdateAssemblyVersion;BuildMiddlewareLibraries">
+		<OnError ExecuteTargets="NotifyFailure" />
+	</Target>
+
+	
+	<ItemGroup>
+		<AssemblyInfoFilesToUpdate Include="$(sourceRoot)\ImageGen\Middleware\Middleware\Properties\AssemblyInfo.cs"/>
+	</ItemGroup>
+	
+	<Target Name="UpdateAssemblyVersion">
+		<Message Text="Modifying AssemblyInfo files..." />	
+		
+		<!-- Update AssemblyVersion -->
+		<FileUpdate Files="@(AssemblyInfoFilesToUpdate)"
+				Regex="AssemblyVersion\(&quot;.*&quot;\)\]"
+				ReplacementText="AssemblyVersion(&quot;$(version)&quot;)]" />
+		<!-- Update AssemblyFileVersion -->
+		<FileUpdate Files="@(AssemblyInfoFilesToUpdate)"
+				Regex="AssemblyFileVersion\(&quot;.*&quot;\)\]"
+				ReplacementText="AssemblyFileVersion(&quot;$(version)&quot;)]" />
+	</Target>
+	
+	<Target Name="BuildMiddlewareLibraries">
+        <MSBuild Projects="$(sourceRoot)\ImageGen\Middleware\Middleware\Middleware.csproj"
+				 Properties="Configuration=$(Configuration)" ContinueOnError="false"  />
+    </Target>  
+	
+</Project>

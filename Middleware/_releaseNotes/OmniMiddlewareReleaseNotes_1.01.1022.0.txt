@@ -1,0 +1,60 @@
+Omni-ID Middleware version 1.01.1022.0
+
+1. Turn Windows UAC (User Account Control) to off or its lowest level.
+
+2. Firewall, open up port for CALCMan.
+
+3. Install "Bonjour for Windows"
+
+4. Install "Omni-IDMiddlewareSetup_xyz.exe", which installs the following components:
+	+---Program Files (x86)
+	    +---Omni-ID
+	        +---CALC Manager
+	        +---Middleware
+	        |   +---bin			// Omni-Middle .NET assemblies
+	        |   +---config_samples		// PrintQueues.txt
+	        |   +---dbScripts		// Initial scripts for database setup
+	        |   +---docs			// assortede Middleware documentation
+	        |   \---sample_source
+	        +---Omni Image Generator
+	        +---Omni Import Connection String
+	        +---OmniImpinjReader
+	        +---OmniLogServer
+	        \---OmniSysSchedConsole
+
+5. Execute the following database scripts in this order: [C:\Program Files (x86)\Omni-ID\Middleware\dbScripts]
+	CreateCALCManDB.sql
+	CreateCALCManStoredProcedures.sql
+	CreateCALCManTables.sql
+	InsertCALCManDB.sql
+	OmniAppCreate.sql
+	OmniAppInsert.sql
+   The scripts should completed successfully with no errors.
+
+6. Modify the C:\Program Files (x86)\OMNI-ID\CALC Manager\CALCManService.exe.config file. Set the correct database connection string in the "CALCManEntities" key.
+
+7. Modify the C:\Program Files (x86)\OMNI-ID\CALC Manager\CALCManService.exe.config file. Set port in the following line:
+	<add key="CALCManServiceHostName" value="http://localhost:3000" />
+to match the value that is set in the CALC configuration. In the above example the port is set to 3000. 
+
+8. From the start menu, run the "Omni Import Connection String" program. Type your database connection string into the “New Connection string” text box”, and press the Import button. The program should report a success status. An example database connection string is (no quotes): "Data Source=.;Initial Catalog=CALCMan;Integrated Security=True;"
+
+9. Message Queue definition file.
+   Copy the C:\Program Files (x86)\Omni-ID\Middleware\config_samples\QueueNames.txt file to the "C:\programdata\Omni-id\Middleware\Config" folder. Modify file as necessary to account for multiple Middleware clients.
+
+10. Reboot computer, to start services and startup programs.
+
+11. Special OmniImpinj app setup instructions:
+    a. Click the "Configure Reader Host" button.
+    b. Press OK on the "No Interface Settings Found" dialog.
+    c. Press "Save Changes" on the "Configure / Create Reader Host Configurations"
+    d. Setup a new reader configuration, press "Configure Readers", then Press "Add New Reader"
+
+
+    
+-------------------------------------------------------------------------------------------
+10/22/13 Version 1.01.1022.0
+
+* Modified OmniAppInsert.sql, removed all sample Impinj reader definitions
+-------------------------------------------------------------------------------------------
+ 

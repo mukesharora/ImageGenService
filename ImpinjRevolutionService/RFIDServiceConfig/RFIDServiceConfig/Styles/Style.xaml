@@ -1,0 +1,198 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk"
+    xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation">
+
+    <Style x:Key="LayoutRootGridStyle" TargetType="Grid">
+        <Setter Property="Margin" Value="0,0,0,0"/>
+    </Style>
+
+    <Style x:Key="LayoutContentEditGridStyle" TargetType="Grid">
+        <Setter Property="Margin" Value="0,0,0,0"/>
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                    <LinearGradientBrush.RelativeTransform>
+                        <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-54"/>
+                    </LinearGradientBrush.RelativeTransform>
+                    <GradientStop Color="#7F308CC6"/>
+                    <GradientStop Color="#7F004572" Offset="0.519"/>
+                    <GradientStop Color="#7F1E74AD" Offset="1"/>
+                    <GradientStop Color="#7F19567E" Offset="0.2"/>
+                    <GradientStop Color="#7F0D76BC" Offset="0.8"/>
+                    <GradientStop Color="#7F2774A7" Offset="0.2001"/>
+                    <GradientStop Color="#7F0D5180" Offset="0.8001"/>
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect ShadowDepth="0" BlurRadius="5" Opacity="1"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+    </Style>
+
+    <Style x:Key="MenuRectangleStyle" TargetType="Rectangle">
+        <Setter Property="Fill">
+            <Setter.Value>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <LinearGradientBrush.RelativeTransform>
+                        <CompositeTransform CenterY="0.5" CenterX="0.5"/>
+                    </LinearGradientBrush.RelativeTransform>
+                    <GradientStop Color="#FFC6E9FF"/>
+                    <GradientStop Color="#FF164868" Offset="1"/>
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="StrokeThickness" Value="0"/>
+        <Setter Property="Height" Value="36"/>
+    </Style>
+
+    <Style x:Key="StackPanelMenuBorderStyle" TargetType="Border">
+        <Setter Property="Padding" Value="20,0,0,0"/>
+    </Style>
+
+    <Style x:Key="MenuStackPanelStyle" TargetType="StackPanel">
+        <Setter Property="Orientation" Value="Horizontal"/>
+        <Setter Property="Height" Value="36"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="Margin" Value="0,0,0,0"/>
+    </Style>
+
+    <Style x:Key="MenuDividerStyle" TargetType="Ellipse">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Fill" Value="White"/>
+        <Setter Property="Height" Value="7"/>
+        <Setter Property="Width" Value="7"/>
+        <Setter Property="Margin" Value="5,0"/>
+    </Style>
+
+    <Style x:Key="DataGridStyle" TargetType="telerik:RadGridView">
+        <Setter Property="Background" Value="#99FFFFFF" ></Setter>
+        <Setter Property="FontSize" Value="14"></Setter>
+        <Setter Property="FontFamily" Value="Tahoma"></Setter>
+        <Setter Property="FontWeight" Value="Bold"></Setter>
+        <Setter Property="IsReadOnly" Value="True"></Setter>
+        <Setter Property="AutoGenerateColumns" Value="False"/>
+        <Setter Property="ShowInsertRow" Value="False"/>
+        <Setter Property="ShowGroupPanel" Value="False"/> 
+    </Style>
+
+    <Style x:Key="MenuButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="{x:Null}"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="BorderBrush" Value="#FF204d89" />
+        <Setter Property="Width" Value="80"/>
+        <Setter Property="Margin" Value="0,4"/>
+        <Setter Property="FontSize" Value="14"></Setter>
+        <Setter Property="FontFamily" Value="Tahoma"></Setter>
+        <Setter Property="FontWeight" Value="Bold"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="MouseOverBackground"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="PressedBackground"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0" To=".55" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="DisabledVisualElement"/>
+                                        <ColorAnimation Duration="0" To="LightGray" Storyboard.TargetProperty="(ContentControl.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="ContentPresenter"/>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualState x:Name="Focused">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisualElement"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Unfocused"/>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border x:Name="BaseBackground" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="3"/>
+                        <Border x:Name="MouseOverBackground" BorderBrush="DarkOrange" BorderThickness="{TemplateBinding BorderThickness}" Opacity="0" CornerRadius="5"/>
+                        <Border x:Name="PressedBackground" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="3" Opacity="0"/>
+                        <Grid Margin="{TemplateBinding BorderThickness}">
+                            <ContentControl x:Name="ContentPresenter" 
+                                            ContentTemplate="{TemplateBinding ContentTemplate}" 
+                                            Content="{TemplateBinding Content}" 
+                                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                            Margin="{TemplateBinding Padding}"
+                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
+                                            Foreground="{TemplateBinding Foreground}">
+                                <ContentControl.Effect>
+                                    <DropShadowEffect ShadowDepth="0"/>
+                                </ContentControl.Effect>
+                            </ContentControl>
+                        </Grid>
+                        <Rectangle x:Name="DisabledVisualElement" Fill="{x:Null}" IsHitTestVisible="false" RadiusY="3" RadiusX="3" Opacity="0" Height="30" Margin="0,3"/>
+                        <Rectangle x:Name="FocusVisualElement" IsHitTestVisible="false" Margin="1" RadiusY="2" RadiusX="2" Stroke="{x:Null}" StrokeThickness="1" Opacity="0" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="RequiredTitleStackPanelStyle" TargetType="StackPanel">
+        <Setter Property="Orientation" Value="Horizontal"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Right"></Setter>
+    </Style>
+
+    <Style x:Key="AsteriskTextBlockStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="FontSize" Value="14"></Setter>
+        <Setter Property="FontFamily" Value="Tahoma"></Setter>
+        <Setter Property="FontWeight" Value="Bold"></Setter>
+    </Style>
+
+    <Style x:Key="TextBlockStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="FontSize" Value="14"></Setter>
+        <Setter Property="FontFamily" Value="Tahoma"></Setter>
+        <Setter Property="FontWeight" Value="Bold"></Setter>
+    </Style>
+
+    <Style x:Key="TextBoxStyle" TargetType="TextBox">
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="FontSize" Value="14"></Setter>
+        <Setter Property="FontFamily" Value="Tahoma"></Setter>
+    </Style>
+
+    <Style x:Key="ButtonStackPanelStyle" TargetType="StackPanel">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Orientation" Value="Horizontal"/>
+        <Setter Property="Height" Value="26"/>
+        <Setter Property="Margin" Value="5,10"/>
+    </Style>
+
+    <Style x:Key="ButtonStyle" TargetType="Button">
+        <Setter Property="Width" Value="60"/>
+        <Setter Property="Height" Value="26"/>
+        <Setter Property="FontSize" Value="14"></Setter>
+        <Setter Property="FontFamily" Value="Tahoma"></Setter>
+        <Setter Property="FontWeight" Value="Bold"></Setter>
+    </Style>
+
+</ResourceDictionary>

@@ -1,0 +1,25 @@
+Middleware build server notes
+
+Build server: 
+Virtual machine "build1" on Solserv1
+
+Build Interval: 
+1. Daily 3:30 AM build
+2. Force build via cctray
+
+Repository access:
+Incremental update with clean build via msbuild.
+
+CCNet layout
+o Config files are in "C:\Program Files (x86)\CruiseControl.NET\server" folder.
+o CCNet state, logs, and artifacts -> "c:\builds\CCNet"
+o Repositories and build area is in "c:\builds\source"
+
+TODO
+o Build server needs it's own GIT user, not bhuzyk
+o CCNet builds are accessible via web browser locally on build1 system, but not via the network.
+o Software dependencies need to be documented (VS2010, VS2012 etc)
+o Modify build to delete most repositories, so that we start clean.
+o Support targeted build through cc.net. -> probably through a forced build, need to somehow get build version to scripts.
+o Automatic GIT tagging <- Jury is out on this, will probably be implemented with a script that is manually run when we determine the build is the one that we want to release. 
+

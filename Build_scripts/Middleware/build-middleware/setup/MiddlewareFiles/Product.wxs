@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="*" Name="Middleware Files" Language="1033" Version="1.0.0.0" Manufacturer="Omni-ID" UpgradeCode="b24e4ed1-fc61-4828-8ed5-9fd74dc68491">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+    
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate EmbedCab="yes" />
+
+		<Feature Id="ProductFeature" Title="MiddlewareFiles" Level="1">
+			<ComponentGroupRef Id="DocComponents" />            
+      <ComponentGroupRef Id="DBSscriptsComponents" />
+      <ComponentGroupRef Id="SampleComponents" />
+      <Feature Id="BinariesFeature" Title="Binaries" Display="expand"/>
+      <ComponentRef Id="RegistryEntries" />
+    </Feature>
+	</Product>
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLROOTFOLDER" Name="Omni-id">
+          <Directory Id="INSTALLFOLDER" Name="Middleware">
+            <Directory Id="DBSCRIPTS" Name="dbScripts"/>
+            <Directory Id="DOCS" Name="docs"/>
+            <Directory Id="SAMPLES" Name="sample_source"/>
+            <Directory Id="BIN" Name="bin"/>
+            <Directory Id="MiddlewareBinariesFolder" Name="bin"/>            
+          </Directory>
+        </Directory>
+      </Directory>
+		</Directory>
+	</Fragment>
+
+	<Fragment>
+		<ComponentGroup Id="DocComponents" Directory="DOCS">			
+			<Component Id="DocComponent" Guid="655EE2F6-BB2B-468c-859D-125ED2721586">
+        <CreateFolder Directory="DOCS" />
+        <File Id="GatewaySetupDoc" Source="..\..\..\..\..\..\ImageGen\Middleware\Omni-ID Gateway Setup.docx" Checksum="yes"/>
+        <File Id="MiddlewareInstallationGuideDoc" Source="..\..\..\..\..\..\ImageGen\Middleware\MiddlewareInstallationGuide.docx" Checksum="yes"/>
+        <File Id="OmniNetApiDoc" Source="..\..\..\..\..\..\ImageGen\Middleware\Omni NET API 1_0.docx" Checksum="yes"/>
+        <File Id="CALCManagerInstallationGuideDoc" Source="..\..\..\..\..\..\CAM-Server\CALCManager\CALC Manager installation guide.docx" Checksum="yes"/>
+        <File Id="OmniImpinjAppGuideDoc" Source="..\..\..\..\..\..\asset-track-server\Infrastructure\OmniImpinjReader\OmniImpinjReader\Docs\OmniImpinjReaderGuide.docx" Checksum="yes"/>
+			</Component>
+		</ComponentGroup>
+
+    <ComponentGroup Id="DBSscriptsComponents" Directory="DBSCRIPTS">
+      <Component Id="DBSscriptsComponent" Guid="E17F1D76-335C-4dfb-B084-E53F32AC462C">
+        <CreateFolder Directory="DBSCRIPTS" />
+        <File Id="OmniAppCreateScripts" Source="..\..\..\..\..\..\ImageGen\Middleware\dbScripts\OmniAppCreate.sql" Checksum="yes"/>
+        <File Id="OmniAppInsertScripts" Source="..\..\..\..\..\..\ImageGen\Middleware\dbScripts\OmniAppInsert.sql" Checksum="yes"/>
+        <File Id="v.1.03.1421.1_upgrade" Source="..\..\..\..\..\..\ImageGen\Middleware\dbScripts\v.1.03.1421.1_upgrade.sql" Checksum="yes"/>      
+
+        <File Id="CreateCALCManDB" Source="..\..\..\..\..\..\CAM-Server\CALCManager\CALCManDB\Scripts\CreateCALCManDB.sql" Checksum="yes"/>
+        <File Id="CreateCALCManStoredProcedures" Source="..\..\..\..\..\..\CAM-Server\CALCManager\CALCManDB\Scripts\CreateCALCManStoredProcedures.sql" Checksum="yes"/>
+        <File Id="CreateCALCManTables" Source="..\..\..\..\..\..\CAM-Server\CALCManager\CALCManDB\Scripts\CreateCALCManTables.sql" Checksum="yes"/>
+        <File Id="InsertCALCManDB" Source="..\..\..\..\..\..\CAM-Server\CALCManager\CALCManDB\Scripts\InsertCALCManDB.sql" Checksum="yes"/>
+      </Component>
+    </ComponentGroup>
+
+    <ComponentGroup Id="SampleComponents" Directory="SAMPLES">
+      <Component Id="SampleComponent" Guid="3D41EF57-CA45-4b96-BA30-B02D4488B491">
+        <CreateFolder Directory="SAMPLES" />
+          <File Id="GpioSample" Source="..\..\..\..\..\..\ImageGen\Middleware\conTestOmniMiddleware\conTestOmniMiddlewareGPIO.cs" Checksum="yes"/>
+          <File Id="TagSample" Source="..\..\..\..\..\..\ImageGen\Middleware\conTestOmniMiddleware\conTestOmniMiddlewareTag.cs" Checksum="yes"/>
+      </Component>
+    </ComponentGroup>
+
+    <FeatureRef Id="BinariesFeature">
+      <Feature Id="ImageGenFeature" Title="ImageGen Module" Description="ImageGen Module" Level="1" >
+        <ComponentGroupRef Id="MiddlewareBinariesComponent" />
+      </Feature>
+    </FeatureRef>
+
+    <!-- Not using version file.
+    <ComponentGroup Id="MiddlewareVersionComponents" Directory="INSTALLFOLDER">
+      <Component Id="MiddlewareVersionComponent" Guid="FCAAD1BB-0B58-439e-9979-0EB74568B34D">
+        <CreateFolder Directory="INSTALLFOLDER" />        
+        <File Id="MiddlewareVersionFile" Source="..\..\..\..\OmniMiddlewareVersion.txt" Checksum="yes"/>
+      </Component>
+    </ComponentGroup>
+    -->
+    <DirectoryRef Id="TARGETDIR">
+      <Component Id="RegistryEntries" Guid="5F53132F-072F-41FD-AEB3-37177B4CBD99">
+        <RegistryKey Root="HKLM" ForceCreateOnInstall="yes"
+                     Key="SOFTWARE\OMNI-ID\GATHERER">
+          <RegistryValue Type="binary" Name="LogFolderPath1" Value="0802d425f2ca7734c9dd37f501dcde83d58156b8ce18160b1562dc33c9e50524" KeyPath="yes"/>
+        </RegistryKey>
+      </Component>
+    </DirectoryRef>
+  </Fragment>
+</Wix>

@@ -1,0 +1,108 @@
+﻿<Window x:Class="BridgestoneSimulator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Loaded="Window_Loaded"
+        xmlns:self="clr-namespace:BridgestoneSimulator"
+        xmlns:converters="clr-namespace:BridgestoneSimulator.Converters"
+        xmlns:p="clr-namespace:BridgestoneSimulator.Properties"
+        Title="Bridgestone Simulator" Height="350" Width="800" Closing="Window_Closing">
+    <Window.Resources>
+        <converters:TransitionTimerConverter x:Key="TransitionTimerConverter" />
+        <converters:TransitionTimerColorConverter x:Key="TransitionTimerColorConverter" />        
+    </Window.Resources>
+
+    <Grid Margin="5">
+        <DockPanel>
+            <Button DockPanel.Dock="Top" HorizontalAlignment="Right" Click="ResetStatus_Click" Padding="5" Content="Reset status to OUT"></Button>
+            <Grid DockPanel.Dock="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                
+                <DockPanel Grid.Column="0">
+                    <TextBlock Text="Workstation"
+                               DockPanel.Dock="Top"
+                               Grid.Row="0"
+                               Grid.Column="0"
+                               FontSize="14" />
+                    <TextBlock Text="Workstaion Status"
+                               DockPanel.Dock="Top"
+                               FontSize="14"
+                               Grid.Row="1"
+                               Grid.Column="0" />
+                    <TextBlock Text="Rack (UID)"
+                               DockPanel.Dock="Top"
+                               FontSize="14"
+                               Grid.Row="2"
+                               Grid.Column="0" />
+                    <TextBlock Text="Transition timer"
+                               DockPanel.Dock="Top"
+                               FontSize="14"
+                               Grid.Row="3"
+                               Grid.Column="0" />
+                    <TextBlock Text="Transition Timer duration (s)"
+                               DockPanel.Dock="Top"
+                               FontSize="14"
+                               Grid.Row="4"
+                               Grid.Column="0" />
+                </DockPanel>
+                <DockPanel Grid.Column="1">
+                    <TextBlock Text="{Binding MiddlewareHelper.WorkstationName}"
+                               DockPanel.Dock="Top"
+                               FontSize="14"
+                               FontWeight="Bold"
+                               Grid.Row="0"
+                               Grid.Column="1"
+                               Margin="5,0,0,0" />
+                    <TextBlock Text="{Binding MiddlewareHelper.WorkstationStatus}"
+                               DockPanel.Dock="Top"
+                               FontSize="14"
+                               FontWeight="Bold"
+                               Grid.Row="1"
+                               Grid.Column="1"
+                               Margin="5,0,0,0" />
+                    <TextBlock Text="{Binding MiddlewareHelper.WorkstationRack}"
+                               DockPanel.Dock="Top"
+                               FontSize="14"
+                               FontWeight="Bold"
+                               Grid.Row="2"
+                               Grid.Column="1"
+                               Margin="5,0,0,0" />
+                    <TextBlock Text="{Binding MiddlewareHelper.InTransition, Converter={StaticResource TransitionTimerConverter}}"
+                               DockPanel.Dock="Top"
+                               FontSize="14"
+                               Foreground="{Binding MiddlewareHelper.InTransition, Converter={StaticResource TransitionTimerColorConverter}}"
+                               FontWeight="Bold"
+                               Grid.Row="3"
+                               Grid.Column="1"
+                               Margin="5,0,0,0" />
+                    <TextBox   Text="{Binding MiddlewareHelper.TransitionDuration}"
+                               DockPanel.Dock="Top"
+                               FontSize="14"
+                               FontWeight="Bold"
+                               Grid.Row="4"
+                               Grid.Column="1"
+                               Margin="5,0,0,0" />
+                </DockPanel>
+
+               
+            </Grid>
+
+            <Grid DockPanel.Dock="Top">
+                
+                <TextBox Text="{Binding MiddlewareHelper.EventMessages, Mode=OneWay}"
+                         HorizontalScrollBarVisibility="Auto"
+                         TextChanged="EventLogTextBox_TextChanged"
+                         VerticalScrollBarVisibility="Visible"
+                         HorizontalAlignment="Stretch"
+                         VerticalAlignment="Stretch"
+                         IsReadOnly="True"
+                         TextWrapping="Wrap"
+                         AcceptsReturn="True" />
+            </Grid>
+        </DockPanel>
+    </Grid>
+</Window>

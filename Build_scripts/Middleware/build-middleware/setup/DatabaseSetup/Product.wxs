@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+  <Product Id="*" Name="DatabaseSetup" Language="1033" Version="1.0.0.0" Manufacturer="Omni-ID" UpgradeCode="96f8dfc2-9519-4d1a-807e-3d30dcfc46eb">
+
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+    <MediaTemplate EmbedCab="yes" />
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+
+
+    <Feature Id="ProductFeature" Title="DatabaseSetup" Level="1">
+      <!--<ComponentGroupRef Id="ProductComponents" />-->
+    </Feature>
+
+    <UIRef Id="SetupDatabaseUI" />
+
+
+
+    <!--<UI>
+      <Property Id="DefaultUIFont" Value="DefaultFont" />
+      <Dialog Id="InstallDlg" Width="370" Height="270" Title="Setup" NoMinimize="yes">        
+        <Control Id="Title" Type="Text" X="15" Y="6" Width="200" Height="15" Transparent="yes" NoPrefix="yes"
+        Text="Ready to Install"/>
+
+        <Control Id="Install" Type="PushButton" X="304" Y="243" Width="56" Height="17"
+        Default="yes" Text="Install">
+          <Publish Event="EndDialog" Value="Return" />
+        </Control>
+      </Dialog>
+      <InstallUISequence>
+        <Show Dialog="InstallDlg" After="CostFinalize" />
+      </InstallUISequence>
+    </UI>-->
+
+
+  </Product>
+
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLROOTFOLDER" Name="Omni-id">
+          <Directory Id="INSTALLFOLDER" Name="Middleware">
+            <Directory Id="DBSETUP" Name="DatabaseSetup"/>
+          </Directory>
+        </Directory>
+      </Directory>
+    </Directory>
+  </Fragment>
+
+  <Fragment>
+
+    <UI Id="SetupDatabaseUI">
+      <!-- 
+         TODO: Find a way to hide other WixUI_Minimal dialogs (possibly by overriding them?)
+         TODO: Upgrade sequence.
+         TODO: Repair sequence.
+         -->
+
+      <UIRef Id="WixUI_Minimal" />
+      <DialogRef Id="DBInstallChoiceDlg" />
+
+      <InstallUISequence>
+        <Show Dialog="DBInstallChoiceDlg" Sequence="1"></Show>
+      </InstallUISequence>
+
+    </UI>
+
+
+  </Fragment>
+
+  <Fragment>
+    <UI>
+      <Property Id="INSTALL_DB_PROPERTY" Secure="yes" Value="auto"></Property>
+      <Dialog Id="DBInstallChoiceDlg" Width="260" Height="100" Title="Choose Database Installation Type - [ProductName]" NoMinimize="yes">
+        <Control Id="DBChoiceLabel" Type="Text" X="10" Y="10" Width="250" Height="15" TabSkip="no" Text="Choose a database install type:" />
+        <Control Id="RadioButtonGroupId1" Type="RadioButtonGroup" X="20" Y="35" Width="250" Height="30" Property="INSTALL_DB_PROPERTY" >
+          <RadioButtonGroup Property="INSTALL_DB_PROPERTY">
+            <RadioButton Value="auto" X="0" Y="0" Width="200" Height="10" Text="Automatically install Middleware database" />
+            <RadioButton Value="manual" X="0" Y="15" Width="200" Height="10" Text="Manually install Middleware database" />
+          </RadioButtonGroup>
+        </Control>
+
+        <Control Id="Yes" Type="PushButton" X="105" Y="75" Width="50" Height="17" Text="Next">
+
+          <!--
+          Ask user for database connection string.
+          -->
+          <Publish Event="NewDialog" Value="GetDBStringDlg">INSTALL_DB_PROPERTY = "auto"</Publish>
+
+          <!-- 
+          Manual should just continue, don't know how to do this so we are going to have
+          to display a new dialog and just auto-close it (not sure how to do that either).
+          -->
+          <Publish Event="NewDialog" Value="Dlg3">INSTALL_DB_PROPERTY = "manual"</Publish>
+
+        </Control>
+      </Dialog>
+
+      <!--
+      Get database connection string dialog.
+      -->
+      <Property Id="WINUSER" Secure="yes" Value="0" />
+      <Property Id="SECURITYENABLESSL" Secure="yes" Value="0" />
+      <Property Id="SMTPCREDENTIAL" Secure="yes" Value="1" />
+      <Property Id="SQLSERVER" Secure="yes" Value="." />
+      <Property Id="SQLDATABASE" Secure="yes" Value="CALCMan" />
+      <Property Id="SQLCONNECTIONTESTRESULT" Secure="yes" Value="1" />
+      <Property Id="SQLCONNECTIONTESTTEXT" Secure="yes" Value="1" />
+      <Dialog Id="GetDBStringDlg" Width="370" Height="330" Title="Database Settings - [ProductName]" NoMinimize="yes">
+
+        <!--Top of the tab order -->
+        <Control Id="TestConnection" Type="PushButton" X="140" Y="303" Width="110" Height="17" Text="Text database connection..." Disabled="no">
+          <Publish Event="EndDialog" Value="Return">1</Publish>
+        </Control>
+
+        <!--Back button-->
+        <Control Id="Back" Type="PushButton" X="45" Y="303" Width="56" Height="17" Text="&amp;Back">
+          <Publish Event="NewDialog" Value="DBInstallChoiceDlg">1</Publish>
+        </Control>
+
+        <!-- Next button will be disabled until a successful test connection -->
+        <Control Id="Next" Type="PushButton" X="260" Y="303" Width="50" Height="17" Text="Next" Disabled="yes">
+          <Publish Event="EndDialog" Value="Return">1</Publish>
+        </Control>
+
+        <!--SQL Server-->
+        <Control Id="SqlServerLabel" Type="Text" X="45" Y="73" Width="100" Height="15" TabSkip="no" Text="&amp;Data Source:" />
+        <Control Id="SqlServerEdit" Type="Edit" X="45" Y="85" Width="270" Height="15" Property="SQLSERVER" Text="{50}" />
+        <!--SQL Database-->
+        <Control Id="SqlDatabaseLabel" Type="Text" X="45" Y="105" Width="100" Height="15" TabSkip="no" Text="&amp;Initial Catalog:" />
+        <Control Id="SqlDatabaseEdit" Type="Edit" X="45" Y="117" Width="270" Height="15" Property="SQLDATABASE" Text="{50}" Disabled="yes"/>
+
+        <!--SQL User-->
+        <Control Id="SqlUserLabel" Type="Text" X="45" Y="137" Width="100" Height="15" TabSkip="no" Text="&amp;User ID:" />
+        <Control Id="SqlUserEdit" Type="Edit" X="45" Y="149" Width="270" Height="15" Property="SQLUSER" Text="{50}">
+          <Condition Action="enable"><![CDATA[WINUSER<>1]]></Condition>
+          <Condition Action="disable">WINUSER=1</Condition>
+        </Control>
+        <!--SQL Password-->
+        <Control Id="SqlPasswordLabel" Type="Text" X="45" Y="169" Width="100" Height="15" TabSkip="no" Text="&amp;Password:" />
+        <Control Id="SqlPasswordEdit" Type="Edit" Password="yes" X="45" Y="181" Width="270" Height="15" Property="SQLPASSWORD" Text="{50}">
+          <Condition Action="enable"><![CDATA[WINUSER<>1]]></Condition>
+          <Condition Action="disable">WINUSER=1</Condition>
+        </Control>
+        <!--Win User -->
+        <!--<Control Id="WinUserCheck" Type="CheckBox" X="45" Y="201" Width="270" Height="18" Text="&amp;Win user" Property="WINUSER" CheckBoxValue='1' />-->
+        <Control Id="WinUserCheck" Type="RadioButtonGroup" X="45" Y="201" Width="305" Height="30" Property="WINUSER" Text="This is My Group">
+          <RadioButtonGroup Property="WINUSER">
+            <RadioButton Value="0" X="0" Y="0" Width="200" Height="10" Text="&amp;Mixed Authentication Mode" />
+            <RadioButton Value="1" X="0" Y="15" Width="200" Height="10" Text="&amp;Windows Authentication Mode" />
+          </RadioButtonGroup>
+        </Control>
+
+      </Dialog>
+
+      <Dialog Id="Dlg3" Width="260" Height="100" Title="Choose Database Installation Type" NoMinimize="yes">
+        <Control Id="TestLabel" Type="Text" X="10" Y="10" Width="250" Height="15" TabSkip="no" Text="Dlg3" />
+        <Control Id="Yes" Type="PushButton" X="105" Y="75" Width="50" Height="17" Text="Next">
+          <Publish Event="EndDialog" Value="Return">1</Publish>
+        </Control>
+      </Dialog>
+
+    </UI>
+  </Fragment>
+
+
+  <!--
+  <Fragment>
+
+    <ComponentGroup Id="ProductComponents" Directory="DBSETUP">
+      <Component Id="ProductComponent" Guid="6E7D625F-716C-413B-BF14-5C36F48F9D55">
+        <CreateFolder Directory="DBSETUP" />
+        <File Id="TestFile" Source="test.txt" Checksum="yes"/>
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+  -->
+
+
+</Wix>

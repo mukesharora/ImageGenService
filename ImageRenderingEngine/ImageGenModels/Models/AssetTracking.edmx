@@ -1,0 +1,319 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AssetTrackingModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="AssetTrackingModelStoreContainer">
+          <EntitySet Name="AssetTypeDynamicAttributes" EntityType="AssetTrackingModel.Store.AssetTypeDynamicAttributes" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="AssetTypeDynamicAttributeValues" EntityType="AssetTrackingModel.Store.AssetTypeDynamicAttributeValues" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="LabelTemplate" EntityType="AssetTrackingModel.Store.LabelTemplate" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="LabelTemplateType" EntityType="AssetTrackingModel.Store.LabelTemplateType" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK__LabelTemp__FK_ID__4C8B54C9" Association="AssetTrackingModel.Store.FK__LabelTemp__FK_ID__4C8B54C9">
+            <End Role="LabelTemplateType" EntitySet="LabelTemplateType" />
+            <End Role="LabelTemplate" EntitySet="LabelTemplate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AssetTypeDynamicAttributeValues_AssetTypeDynamicAttributes" Association="AssetTrackingModel.Store.FK_AssetTypeDynamicAttributeValues_AssetTypeDynamicAttributes">
+            <End Role="AssetTypeDynamicAttributes" EntitySet="AssetTypeDynamicAttributes" />
+            <End Role="AssetTypeDynamicAttributeValues" EntitySet="AssetTypeDynamicAttributeValues" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="AssetTypeDynamicAttributes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="FK_ID_AssetType" Type="int" Nullable="false" />
+          <Property Name="FK_ID_DynamicAttributeType" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Description" Type="nvarchar" MaxLength="250" />
+          <Property Name="DefaultValue" Type="nvarchar" MaxLength="1024" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="IsNullable" Type="bit" Nullable="false" />
+          <Property Name="Version" Type="timestamp" StoreGeneratedPattern="Computed" />
+          <Property Name="EditState" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AssetTypeDynamicAttributeValues">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="FK_ID_AssetTypeDynamicAttribute" Type="int" Nullable="false" />
+          <Property Name="Value" Type="nvarchar" Nullable="false" MaxLength="1024" />
+          <Property Name="FK_ID_Asset" Type="int" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="Version" Type="timestamp" StoreGeneratedPattern="Computed" />
+          <Property Name="EditState" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LabelTemplate">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="TemplateName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="ModifyBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="TemplateFileName" Type="nvarchar" MaxLength="100" />
+          <Property Name="FK_ID_ConnectedDevices" Type="int" />
+          <Property Name="Approved" Type="bit" />
+          <Property Name="ApprovedBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="ApprovedOn" Type="datetime" />
+          <Property Name="Active" Type="bit" />
+          <Property Name="EditState" Type="int" Nullable="false" />
+          <Property Name="Version" Type="timestamp" StoreGeneratedPattern="Computed" />
+          <Property Name="BTWBinary" Type="varbinary(max)" />
+          <Property Name="FK_ID_LabelTemplateType" Type="int" />
+          <Property Name="ProviewXML" Type="xml" />
+        </EntityType>
+        <EntityType Name="LabelTemplateType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="TypeName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="ModifyBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="Active" Type="bit" />
+          <Property Name="Version" Type="timestamp" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <Association Name="FK__LabelTemp__FK_ID__4C8B54C9">
+          <End Role="LabelTemplateType" Type="AssetTrackingModel.Store.LabelTemplateType" Multiplicity="0..1" />
+          <End Role="LabelTemplate" Type="AssetTrackingModel.Store.LabelTemplate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LabelTemplateType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LabelTemplate">
+              <PropertyRef Name="FK_ID_LabelTemplateType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AssetTypeDynamicAttributeValues_AssetTypeDynamicAttributes">
+          <End Role="AssetTypeDynamicAttributes" Type="AssetTrackingModel.Store.AssetTypeDynamicAttributes" Multiplicity="1" />
+          <End Role="AssetTypeDynamicAttributeValues" Type="AssetTrackingModel.Store.AssetTypeDynamicAttributeValues" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AssetTypeDynamicAttributes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AssetTypeDynamicAttributeValues">
+              <PropertyRef Name="FK_ID_AssetTypeDynamicAttribute" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AssetTrackingModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="AssetTrackingEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="LabelTemplates" EntityType="AssetTrackingModel.LabelTemplate" />
+          <EntitySet Name="LabelTemplateTypes" EntityType="AssetTrackingModel.LabelTemplateType" />
+          <AssociationSet Name="FK__LabelTemp__FK_ID__4C8B54C9" Association="AssetTrackingModel.FK__LabelTemp__FK_ID__4C8B54C9">
+            <End Role="LabelTemplateType" EntitySet="LabelTemplateTypes" />
+            <End Role="LabelTemplate" EntitySet="LabelTemplates" />
+          </AssociationSet>
+          <EntitySet Name="AssetTypeDynamicAttributes" EntityType="AssetTrackingModel.AssetTypeDynamicAttribute" />
+          <EntitySet Name="AssetTypeDynamicAttributeValues" EntityType="AssetTrackingModel.AssetTypeDynamicAttributeValue" />
+          <AssociationSet Name="FK_AssetTypeDynamicAttributeValues_AssetTypeDynamicAttributes" Association="AssetTrackingModel.FK_AssetTypeDynamicAttributeValues_AssetTypeDynamicAttributes">
+            <End Role="AssetTypeDynamicAttribute" EntitySet="AssetTypeDynamicAttributes" />
+            <End Role="AssetTypeDynamicAttributeValue" EntitySet="AssetTypeDynamicAttributeValues" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="LabelTemplate">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TemplateName" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifyBy" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="TemplateFileName" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="FK_ID_ConnectedDevices" Type="Int32" />
+          <Property Name="Approved" Type="Boolean" />
+          <Property Name="ApprovedBy" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="ApprovedOn" Type="DateTime" Precision="3" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="EditState" Type="Int32" Nullable="false" />
+          <Property Name="Version" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="BTWBinary" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="FK_ID_LabelTemplateType" Type="Int32" />
+          <Property Name="ProviewXML" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="LabelTemplateType" Relationship="AssetTrackingModel.FK__LabelTemp__FK_ID__4C8B54C9" FromRole="LabelTemplate" ToRole="LabelTemplateType" />
+        </EntityType>
+        <EntityType Name="LabelTemplateType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifyBy" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="Version" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="LabelTemplates" Relationship="AssetTrackingModel.FK__LabelTemp__FK_ID__4C8B54C9" FromRole="LabelTemplateType" ToRole="LabelTemplate" />
+        </EntityType>
+        <Association Name="FK__LabelTemp__FK_ID__4C8B54C9">
+          <End Role="LabelTemplateType" Type="AssetTrackingModel.LabelTemplateType" Multiplicity="0..1" />
+          <End Role="LabelTemplate" Type="AssetTrackingModel.LabelTemplate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LabelTemplateType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LabelTemplate">
+              <PropertyRef Name="FK_ID_LabelTemplateType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="AssetTypeDynamicAttribute">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="FK_ID_AssetType" Nullable="false" />
+          <Property Type="Int32" Name="FK_ID_DynamicAttributeType" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Description" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="DefaultValue" MaxLength="1024" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="UserName" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="UpdateDate" Precision="3" />
+          <Property Type="Boolean" Name="IsNullable" Nullable="false" />
+          <Property Type="Binary" Name="Version" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Type="Int32" Name="EditState" Nullable="false" />
+          <NavigationProperty Name="AssetTypeDynamicAttributeValues" Relationship="AssetTrackingModel.FK_AssetTypeDynamicAttributeValues_AssetTypeDynamicAttributes" FromRole="AssetTypeDynamicAttribute" ToRole="AssetTypeDynamicAttributeValue" />
+        </EntityType>
+        <EntityType Name="AssetTypeDynamicAttributeValue">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="FK_ID_AssetTypeDynamicAttribute" Nullable="false" />
+          <Property Type="String" Name="Value" Nullable="false" MaxLength="1024" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="FK_ID_Asset" />
+          <Property Type="String" Name="UserName" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="UpdateDate" Precision="3" />
+          <Property Type="Binary" Name="Version" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Type="Int32" Name="EditState" Nullable="false" />
+          <NavigationProperty Name="AssetTypeDynamicAttribute" Relationship="AssetTrackingModel.FK_AssetTypeDynamicAttributeValues_AssetTypeDynamicAttributes" FromRole="AssetTypeDynamicAttributeValue" ToRole="AssetTypeDynamicAttribute" />
+        </EntityType>
+        <Association Name="FK_AssetTypeDynamicAttributeValues_AssetTypeDynamicAttributes">
+          <End Type="AssetTrackingModel.AssetTypeDynamicAttribute" Role="AssetTypeDynamicAttribute" Multiplicity="1" />
+          <End Type="AssetTrackingModel.AssetTypeDynamicAttributeValue" Role="AssetTypeDynamicAttributeValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AssetTypeDynamicAttribute">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AssetTypeDynamicAttributeValue">
+              <PropertyRef Name="FK_ID_AssetTypeDynamicAttribute" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AssetTrackingModelStoreContainer" CdmEntityContainer="AssetTrackingEntities">
+          <EntitySetMapping Name="LabelTemplates">
+            <EntityTypeMapping TypeName="AssetTrackingModel.LabelTemplate">
+              <MappingFragment StoreEntitySet="LabelTemplate">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TemplateName" ColumnName="TemplateName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="TemplateFileName" ColumnName="TemplateFileName" />
+                <ScalarProperty Name="FK_ID_ConnectedDevices" ColumnName="FK_ID_ConnectedDevices" />
+                <ScalarProperty Name="Approved" ColumnName="Approved" />
+                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+                <ScalarProperty Name="ApprovedOn" ColumnName="ApprovedOn" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="EditState" ColumnName="EditState" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="BTWBinary" ColumnName="BTWBinary" />
+                <ScalarProperty Name="FK_ID_LabelTemplateType" ColumnName="FK_ID_LabelTemplateType" />
+                <ScalarProperty Name="ProviewXML" ColumnName="ProviewXML" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LabelTemplateTypes">
+            <EntityTypeMapping TypeName="AssetTrackingModel.LabelTemplateType">
+              <MappingFragment StoreEntitySet="LabelTemplateType">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AssetTypeDynamicAttributes">
+            <EntityTypeMapping TypeName="AssetTrackingModel.AssetTypeDynamicAttribute">
+              <MappingFragment StoreEntitySet="AssetTypeDynamicAttributes">
+                <ScalarProperty Name="EditState" ColumnName="EditState" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="IsNullable" ColumnName="IsNullable" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="DefaultValue" ColumnName="DefaultValue" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="FK_ID_DynamicAttributeType" ColumnName="FK_ID_DynamicAttributeType" />
+                <ScalarProperty Name="FK_ID_AssetType" ColumnName="FK_ID_AssetType" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AssetTypeDynamicAttributeValues">
+            <EntityTypeMapping TypeName="AssetTrackingModel.AssetTypeDynamicAttributeValue">
+              <MappingFragment StoreEntitySet="AssetTypeDynamicAttributeValues">
+                <ScalarProperty Name="EditState" ColumnName="EditState" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="FK_ID_Asset" ColumnName="FK_ID_Asset" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="FK_ID_AssetTypeDynamicAttribute" ColumnName="FK_ID_AssetTypeDynamicAttribute" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

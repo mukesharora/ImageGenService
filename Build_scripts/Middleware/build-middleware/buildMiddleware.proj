@@ -1,0 +1,30 @@
+<Project DefaultTargets="BuildAll" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<Import Project="WriteVersionFile.proj" />
+	<Import Project="OmniImpinjReader.proj" />
+	<Import Project="OmniLogServer.proj" />
+	<Import Project="OmniSysSchedConsole.proj" />
+	<Import Project="CalcManService.proj" />
+	<Import Project="ImageGenService.proj" />
+	<Import Project="OmniImportConnectionString.proj" />	
+	<Import Project="MiddlewareLibraries.proj" />	
+	<Import Project="ClientConfigurator.proj" />
+	<Import Project="MiddlewareSetup.proj"/>
+	<Import Project="RecordCommitNumbers.proj"/>
+	  
+	<Target Name="BuildAll">
+		
+		<CallTarget Targets="OmniImpinjReaderBuildAll"/>		
+		<CallTarget Targets="OmniLogServerBuildAll"/>		
+		<CallTarget Targets="OmniSysSchedConsoleBuildAll"/>		
+		<CallTarget Targets="CALCManServiceBuildAll"/>
+		<CallTarget Targets="ImageGenServiceBuildAll"/>		
+		<CallTarget Targets="OmniImportConnectionStringBuildAll"/>		
+		<CallTarget Targets="MiddlewareLibrariesBuildAll"/>		
+		<CallTarget Targets="ClientConfiguratorBuildAll"/>
+		
+		<CallTarget Targets="MiddlewareSetupBuildAll"/>		
+		<CallTarget Targets="RecordCommitNumbers"/>
+
+	</Target>
+</Project>

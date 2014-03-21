@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project
+    xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+    ToolsVersion="4.0"
+    DefaultTargets="ImageGenServiceBuildAll">
+
+	<Target Name="ImageGenServiceBuildAll" DependsOnTargets="UpdateAssemblyVersion1;UpdateAssemblyVersion2;ImageGenService;ImageGenServiceSetup;CopyImageGenServiceSetup">
+		<OnError ExecuteTargets="NotifyFailure" />
+	</Target>
+	
+	<ItemGroup>
+		<AssemblyInfoFilesToUpdate1 Include="$(sourceRoot)\ImageGen\ImageRenderingEngine\ImageGenService\Properties\AssemblyInfo.cs"/>
+	</ItemGroup>	
+	
+	<ItemGroup>
+		<AssemblyInfoFilesToUpdate2 Include="$(sourceRoot)\ImageGen\ImageRenderingEngine\ImageGenWebApi\Properties\AssemblyInfo.cs"/>
+	</ItemGroup>	
+	
+	<!-- Updates the service exe. -->
+	<Target Name="UpdateAssemblyVersion1">
+		<Message Text="Modifying AssemblyInfo files..." />	
+		
+		<!-- Update AssemblyVersion -->
+		<FileUpdate Files="@(AssemblyInfoFilesToUpdate1)"
+				Regex="AssemblyVersion\(&quot;.*&quot;\)\]"
+				ReplacementText="AssemblyVersion(&quot;$(version)&quot;)]" />
+		<!-- Update AssemblyFileVersion -->
+		<FileUpdate Files="@(AssemblyInfoFilesToUpdate1)"
+				Regex="AssemblyFileVersion\(&quot;.*&quot;\)\]"
+				ReplacementText="AssemblyFileVersion(&quot;$(version)&quot;)]" />
+	</Target>	
+	
+	<!-- Updates the assembly that actually logs the version -->	
+	<Target Name="UpdateAssemblyVersion2">
+		<Message Text="Modifying AssemblyInfo files..." />	
+		
+		<!-- Update AssemblyVersion -->
+		<FileUpdate Files="@(AssemblyInfoFilesToUpdate2)"
+				Regex="AssemblyVersion\(&quot;.*&quot;\)\]"
+				ReplacementText="AssemblyVersion(&quot;$(version)&quot;)]" />
+		<!-- Update AssemblyFileVersion -->
+		<FileUpdate Files="@(AssemblyInfoFilesToUpdate2)"
+				Regex="AssemblyFileVersion\(&quot;.*&quot;\)\]"
+				ReplacementText="AssemblyFileVersion(&quot;$(version)&quot;)]" />
+	</Target>		
+
+	<Target Name="ImageGenService">
+        <MSBuild Projects="$(sourceRoot)\ImageGen\ImageRenderingEngine\ImageGenService\ImageGenService.csproj"
+				 Properties="Configuration=$(Configuration)" ContinueOnError="false" Targets="Clean;Build" />
+    </Target>  
+		
+	<Target Name="ImageGenServiceSetup">
+		<Exec Command='$(devenv10Path)devenv.exe "$(sourceRoot)\ImageGen\ImageRenderingEngine\ImageRenderingEngine.sln" /build $(Configuration) /project "$(sourceRoot)\ImageGen\ImageRenderingEngine\ImageGenSetup\ImageGenSetup.vdproj"'/>
+	</Target>
+	
+	<Target Name="CopyImageGenServiceSetup">
+		<Copy
+			SourceFiles='$(sourceRoot)\ImageGen\ImageRenderingEngine\ImageGenSetup\$(Configuration)\ImageGenSetup.msi'
+			DestinationFolder='$(generated_msi_folder)'
+		/>
+    </Target>
+	
+	
+</Project>

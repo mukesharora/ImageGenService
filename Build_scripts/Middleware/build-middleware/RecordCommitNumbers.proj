@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project
+    xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+    ToolsVersion="4.0"
+    DefaultTargets="RecordCommitNumbers">
+	
+	<UsingTask AssemblyFile="$(taskDllFolder)\AssetTracking.BuildTask.dll" TaskName="CommitNumber" />
+
+	<Target Name="RecordCommitNumbers" DependsOnTargets="asset-track-server;CAM-Server;Common-Event;CommonLib;ImageGen;cool-tools;ReportCommitNumbers">
+		<OnError ExecuteTargets="NotifyFailure" />
+	</Target>
+
+	<Target Name="asset-track-server">
+		<CommitNumber ProjectPath="$(sourceRoot)\asset-track-server">
+			<Output TaskParameter="Result" PropertyName="asset-track-server_CommitNumber"/>			
+		</CommitNumber>			
+	</Target>
+
+	<Target Name="CAM-Server">
+		<CommitNumber ProjectPath="$(sourceRoot)\CAM-Server">
+			<Output TaskParameter="Result" PropertyName="CAM-Server_CommitNumber"/>
+		</CommitNumber>	
+	</Target>
+
+	<Target Name="Common-Event">
+		<CommitNumber ProjectPath="$(sourceRoot)\Common-Event">
+			<Output TaskParameter="Result" PropertyName="Common-Event_CommitNumber"/>
+		</CommitNumber>	
+	</Target>
+
+
+	<Target Name="CommonLib">
+		<CommitNumber ProjectPath="$(sourceRoot)\CommonLib">
+			<Output TaskParameter="Result" PropertyName="CommonLib_CommitNumber"/>
+		</CommitNumber>	
+	</Target>
+
+	<Target Name="ImageGen">
+		<CommitNumber ProjectPath="$(sourceRoot)\ImageGen">
+			<Output TaskParameter="Result" PropertyName="ImageGen_CommitNumber"/>			
+		</CommitNumber>	
+	</Target>
+	
+	<Target Name="cool-tools">
+		<CommitNumber ProjectPath="$(sourceRoot)\cool-tools">
+			<Output TaskParameter="Result" PropertyName="cool-tools_CommitNumber"/>			
+		</CommitNumber>	
+	</Target>		
+	
+	<Target Name="ReportCommitNumbers">
+		<Message Text="Middleware build version: $(version)" />	
+		<Message Text="asset-track-server CommitNumber: $(asset-track-server_CommitNumber)" />	
+		<Message Text="CommonLib CommitNumber: $(CommonLib_CommitNumber)" />	
+		<Message Text="ImageGen CommitNumber: $(ImageGen_CommitNumber)" />	
+		<Message Text="Common-Event CommitNumber: $(Common-Event_CommitNumber)" />			
+		<Message Text="CAM-Server CommitNumber: $(CAM-Server_CommitNumber)" />			
+		<Message Text="cool-tools CommitNumber: $(cool-tools_CommitNumber)" />		
+	</Target>
+	
+</Project>

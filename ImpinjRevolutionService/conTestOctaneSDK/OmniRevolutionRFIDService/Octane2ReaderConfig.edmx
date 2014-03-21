@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ImpinjReadersConfigurationModel.Store" Alias="Self" Provider="System.Data.SQLite" ProviderManifestToken="ISO8601" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="ImpinjReadersConfigurationModelStoreContainer">
+          <EntitySet Name="Reader" EntityType="ImpinjReadersConfigurationModel.Store.Reader" store:Type="Tables" />
+          <EntitySet Name="ReaderAntenna" EntityType="ImpinjReadersConfigurationModel.Store.ReaderAntenna" store:Type="Tables" />
+          <AssociationSet Name="FK_ReaderAntenna_0_0" Association="ImpinjReadersConfigurationModel.Store.FK_ReaderAntenna_0_0">
+            <End Role="Reader" EntitySet="Reader" />
+            <End Role="ReaderAntenna" EntitySet="ReaderAntenna" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Reader">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="integer" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="HostName" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="CurrentStatus" Type="nvarchar" MaxLength="60" />
+          <Property Name="LastPing" Type="datetime" />
+          <Property Name="ReaderID" Type="nvarchar" MaxLength="60" />
+        </EntityType>
+        <EntityType Name="ReaderAntenna">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="integer" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="FK_ID_Reader" Type="integer" />
+          <Property Name="PortNumber" Type="integer" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ReaderAntenna_0_0">
+          <End Role="Reader" Type="ImpinjReadersConfigurationModel.Store.Reader" Multiplicity="0..1" />
+          <End Role="ReaderAntenna" Type="ImpinjReadersConfigurationModel.Store.ReaderAntenna" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reader">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ReaderAntenna">
+              <PropertyRef Name="FK_ID_Reader" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ImpinjReadersConfigurationModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="ImpinjReadersConfigurationEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Readers" EntityType="ImpinjReadersConfigurationModel.Reader" />
+          <EntitySet Name="ReaderAntennas" EntityType="ImpinjReadersConfigurationModel.ReaderAntenna" />
+          <AssociationSet Name="FK_ReaderAntenna_0_0" Association="ImpinjReadersConfigurationModel.FK_ReaderAntenna_0_0">
+            <End Role="Reader" EntitySet="Readers" />
+            <End Role="ReaderAntenna" EntitySet="ReaderAntennas" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Reader">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HostName" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="CurrentStatus" Type="String" MaxLength="60" Unicode="true" FixedLength="false" />
+          <Property Name="LastPing" Type="DateTime" />
+          <Property Name="ReaderID" Type="String" MaxLength="60" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="ReaderAntennas" Relationship="ImpinjReadersConfigurationModel.FK_ReaderAntenna_0_0" FromRole="Reader" ToRole="ReaderAntenna" />
+        </EntityType>
+        <EntityType Name="ReaderAntenna">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FK_ID_Reader" Type="Int64" />
+          <Property Name="PortNumber" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Reader" Relationship="ImpinjReadersConfigurationModel.FK_ReaderAntenna_0_0" FromRole="ReaderAntenna" ToRole="Reader" />
+        </EntityType>
+        <Association Name="FK_ReaderAntenna_0_0">
+          <End Role="Reader" Type="ImpinjReadersConfigurationModel.Reader" Multiplicity="0..1" />
+          <End Role="ReaderAntenna" Type="ImpinjReadersConfigurationModel.ReaderAntenna" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reader">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ReaderAntenna">
+              <PropertyRef Name="FK_ID_Reader" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ImpinjReadersConfigurationModelStoreContainer" CdmEntityContainer="ImpinjReadersConfigurationEntities">
+          <EntitySetMapping Name="Readers">
+            <EntityTypeMapping TypeName="ImpinjReadersConfigurationModel.Reader">
+              <MappingFragment StoreEntitySet="Reader">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="HostName" ColumnName="HostName" />
+                <ScalarProperty Name="CurrentStatus" ColumnName="CurrentStatus" />
+                <ScalarProperty Name="LastPing" ColumnName="LastPing" />
+                <ScalarProperty Name="ReaderID" ColumnName="ReaderID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReaderAntennas">
+            <EntityTypeMapping TypeName="ImpinjReadersConfigurationModel.ReaderAntenna">
+              <MappingFragment StoreEntitySet="ReaderAntenna">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FK_ID_Reader" ColumnName="FK_ID_Reader" />
+                <ScalarProperty Name="PortNumber" ColumnName="PortNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="Octane2ReaderConfig">
+        <EntityTypeShape EntityType="ImpinjReadersConfigurationModel.Reader" Width="1.5" PointX="0.75" PointY="0.875" Height="2.1725878906250005" IsExpanded="true" />
+        <EntityTypeShape EntityType="ImpinjReadersConfigurationModel.ReaderAntenna" Width="1.5" PointX="3" PointY="1.125" Height="1.7879850260416674" IsExpanded="true" />
+        <AssociationConnector Association="ImpinjReadersConfigurationModel.FK_ReaderAntenna_0_0" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="2.0189925130208337" />
+          <ConnectorPoint PointX="3" PointY="2.0189925130208337" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

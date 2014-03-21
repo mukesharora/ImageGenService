@@ -1,0 +1,15 @@
+<OutOfBrowserSettings ShortName="RFID Service Config" EnableGPUAcceleration="True" ShowInstallMenuItem="True">
+  <OutOfBrowserSettings.Blurb>RFIDServiceConfig Application on your desktop; at home, at work or on the go.</OutOfBrowserSettings.Blurb>
+  <OutOfBrowserSettings.WindowSettings>
+    <WindowSettings Title="RFID Service Config" Height="720" Width="1200" />
+  </OutOfBrowserSettings.WindowSettings>
+  <OutOfBrowserSettings.SecuritySettings>
+    <SecuritySettings ElevatedPermissions="Required" />
+  </OutOfBrowserSettings.SecuritySettings>
+  <OutOfBrowserSettings.Icons>
+    <Icon Size="16,16">Icons/icon16.png</Icon>
+    <Icon Size="32,32">Icons/icon32.png</Icon>
+    <Icon Size="48,48">Icons/icon48.png</Icon>
+    <Icon Size="128,128">Icons/icon128.png</Icon>
+  </OutOfBrowserSettings.Icons>
+</OutOfBrowserSettings>

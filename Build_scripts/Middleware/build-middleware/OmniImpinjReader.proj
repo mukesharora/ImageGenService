@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project
+    xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+    ToolsVersion="4.0"
+    DefaultTargets="OmniImpinjReaderBuildAll">
+	
+	<UsingTask AssemblyFile="$(taskDllFolder)\MSBuild.Community.Tasks.dll" TaskName="FileUpdate" />
+
+	<Target Name="OmniImpinjReaderBuildAll" DependsOnTargets="UpdateAssemblyVersion;OmniImpinjReader;OmniImpinjReaderSetup;CopyOmniImpinjReaderSetup">
+		<OnError ExecuteTargets="NotifyFailure" />
+	</Target>
+	
+	<ItemGroup>
+		<AssemblyInfoFilesToUpdate Include="$(sourceRoot)\asset-track-server\Infrastructure\OmniImpinjReader\OmniImpinjReader\OmniImpinjReader\Properties\AssemblyInfo.cs"/>
+	</ItemGroup>
+	
+	<Target Name="UpdateAssemblyVersion">
+		<Message Text="Modifying AssemblyInfo files..." />	
+		
+		<!-- Update AssemblyVersion -->
+		<FileUpdate Files="@(AssemblyInfoFilesToUpdate)"
+				Regex="AssemblyVersion\(&quot;.*&quot;\)\]"
+				ReplacementText="AssemblyVersion(&quot;$(version)&quot;)]" />
+		<!-- Update AssemblyFileVersion -->
+		<FileUpdate Files="@(AssemblyInfoFilesToUpdate)"
+				Regex="AssemblyFileVersion\(&quot;.*&quot;\)\]"
+				ReplacementText="AssemblyFileVersion(&quot;$(version)&quot;)]" />
+	</Target>
+
+	<Target Name="OmniImpinjReader">
+        <MSBuild Projects="$(sourceRoot)\asset-track-server\Infrastructure\OmniImpinjReader\OmniImpinjReader\OmniImpinjReader\OmniImpinjReader.csproj"
+				 Properties="Configuration=$(Configuration)" ContinueOnError="false" Targets="Clean;Build" />
+    </Target>  
+	
+	<Target Name="OmniImpinjReaderSetup">
+		<Exec Command='$(devenv10Path)devenv.exe "$(sourceRoot)\asset-track-server\Infrastructure\OmniImpinjReader\OmniImpinjReader\OmniImpinjReader.sln" /build $(Configuration) /project "$(sourceRoot)\asset-track-server\Infrastructure\OmniImpinjReader\OmniImpinjReader\OmniImpinjReaderSetup\OmniImpinjReaderSetup.vdproj"'/>
+	</Target>
+	
+	<Target Name="CopyOmniImpinjReaderSetup">
+		<Copy
+			SourceFiles='$(sourceRoot)\asset-track-server\Infrastructure\OmniImpinjReader\OmniImpinjReader\OmniImpinjReaderSetup\$(Configuration)\OmniImpinjReaderSetup.msi'
+			DestinationFolder='$(generated_msi_folder)'
+		/>
+    </Target>
+	
+</Project>

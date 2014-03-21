@@ -1,0 +1,28 @@
+<SystemMetadata>
+	<Errors>
+		<CommandError>
+			<ErrorCode>Field Missing</ErrorCode>
+			<ErrorCode>Bad Command</ErrorCode>
+			<ErrorCode>Rejected Command</ErrorCode>
+		</CommandError>
+		<SystemError>
+			<ErrorCode>Server Error</ErrorCode>
+			<ErrorCode>RFID Reader Error</ErrorCode>
+			<ErrorCode>Web Error</ErrorCode>
+		</SystemError>
+	</Errors>
+	<SupportedTags>
+		<TagType>P3</TagType>
+		<TagType>P4</TagType>
+	</SupportedTags>
+	<ImageTemplates>
+		<Template Id="5" TagType="P3">
+			<Field Name="field0" BarcodeType="One Dimensional"/>
+			<Field Name="field1" BarcodeType="None"/>
+			<Field Name="field2" BarcodeType="None"/>
+			<Field Name="field3" BarcodeType="None"/>
+			<Field Name="field4" BarcodeType="None"/>
+			<Field Name="field5" BarcodeType="None"/>
+		</Template>
+	</ImageTemplates>
+</SystemMetadata>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project
+    xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+    ToolsVersion="4.0"
+    DefaultTargets="CALCManServiceBuildAll">
+	
+	<UsingTask AssemblyFile="$(taskDllFolder)\MSBuild.Community.Tasks.dll" TaskName="FileUpdate" />
+
+	<Target Name="CALCManServiceBuildAll" DependsOnTargets="UpdateAssemblyVersion1;UpdateAssemblyVersion2;CALCManService;CALCManServiceSetup;CopyCALCManServiceSetup">
+		<OnError ExecuteTargets="NotifyFailure" />
+	</Target>
+	
+	<ItemGroup>
+		<AssemblyInfoFilesToUpdate1 Include="$(sourceRoot)\CAM-Server\CALCManager\CALCManService\Properties\AssemblyInfo.cs"/>
+	</ItemGroup>	
+	
+	<ItemGroup>
+		<AssemblyInfoFilesToUpdate2 Include="$(sourceRoot)\CAM-Server\CALCManager\CALCMan\Properties\AssemblyInfo.cs"/>
+	</ItemGroup>	
+
+	<!-- Updates the service exe. -->
+	<Target Name="UpdateAssemblyVersion1">
+		<Message Text="Modifying AssemblyInfo files..." />	
+		
+		<!-- Update AssemblyVersion -->
+		<FileUpdate Files="@(AssemblyInfoFilesToUpdate1)"
+				Regex="AssemblyVersion\(&quot;.*&quot;\)\]"
+				ReplacementText="AssemblyVersion(&quot;$(version)&quot;)]" />
+		<!-- Update AssemblyFileVersion -->
+		<FileUpdate Files="@(AssemblyInfoFilesToUpdate1)"
+				Regex="AssemblyFileVersion\(&quot;.*&quot;\)\]"
+				ReplacementText="AssemblyFileVersion(&quot;$(version)&quot;)]" />
+	</Target>	
+	
+	<!-- Updates the assembly that actually logs the version -->	
+	<Target Name="UpdateAssemblyVersion2">
+		<Message Text="Modifying AssemblyInfo files..." />	
+		
+		<!-- Update AssemblyVersion -->
+		<FileUpdate Files="@(AssemblyInfoFilesToUpdate2)"
+				Regex="AssemblyVersion\(&quot;.*&quot;\)\]"
+				ReplacementText="AssemblyVersion(&quot;$(version)&quot;)]" />
+		<!-- Update AssemblyFileVersion -->
+		<FileUpdate Files="@(AssemblyInfoFilesToUpdate2)"
+				Regex="AssemblyFileVersion\(&quot;.*&quot;\)\]"
+				ReplacementText="AssemblyFileVersion(&quot;$(version)&quot;)]" />
+	</Target>		
+
+	<Target Name="CALCManService">
+        <MSBuild Projects="$(sourceRoot)\CAM-Server\CALCManager\CALCManService\CALCManService.csproj"
+				 Properties="Configuration=$(Configuration)" ContinueOnError="false" Targets="Clean;Build" />
+    </Target>  
+	
+	<!-- TODO - Can we detect an error from setup build? -->	
+	<Target Name="CALCManServiceSetup">
+		<Exec Command='$(devenv10Path)devenv.exe "$(sourceRoot)\CAM-Server\CALCManager\CALCManager.sln" /build $(Configuration) /project "$(sourceRoot)\CAM-Server\CALCManager\CALCManServiceInstaller\CALCManServiceInstaller.vdproj"'/>
+	</Target>
+	
+	<Target Name="CopyCALCManServiceSetup">
+		<Copy
+			SourceFiles='$(sourceRoot)\CAM-Server\CALCManager\CALCManServiceInstaller\$(Configuration)\CALCManServiceInstaller.msi'
+			DestinationFolder='$(generated_msi_folder)'
+		/>
+    </Target>
+	
+	
+</Project>

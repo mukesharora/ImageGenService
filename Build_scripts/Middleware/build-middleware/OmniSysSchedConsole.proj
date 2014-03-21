@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project
+    xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+    ToolsVersion="4.0"
+    DefaultTargets="OmniSysSchedConsoleBuildAll">
+
+	<UsingTask AssemblyFile="$(taskDllFolder)\MSBuild.Community.Tasks.dll" TaskName="FileUpdate" />
+	
+	<Target Name="OmniSysSchedConsoleBuildAll" DependsOnTargets="UpdateAssemblyVersion;OmniSysSchedConsole;OmniSysSchedConsoleSetup;CopyOmniSysSchedConsoleSetup">
+		<OnError ExecuteTargets="NotifyFailure" />
+	</Target>
+	
+	<ItemGroup>
+		<AssemblyInfoFilesToUpdate Include="$(sourceRoot)\asset-track-server\Infrastructure\wfPostMessageIPC\OmniSysSchedConsole\Properties\AssemblyInfo.cs"/>
+	</ItemGroup>
+	
+	<Target Name="UpdateAssemblyVersion">
+		<Message Text="Modifying AssemblyInfo files..." />	
+		
+		<!-- Update AssemblyVersion -->
+		<FileUpdate Files="@(AssemblyInfoFilesToUpdate)"
+				Regex="AssemblyVersion\(&quot;.*&quot;\)\]"
+				ReplacementText="AssemblyVersion(&quot;$(version)&quot;)]" />
+		<!-- Update AssemblyFileVersion -->
+		<FileUpdate Files="@(AssemblyInfoFilesToUpdate)"
+				Regex="AssemblyFileVersion\(&quot;.*&quot;\)\]"
+				ReplacementText="AssemblyFileVersion(&quot;$(version)&quot;)]" />
+	</Target>
+
+	<Target Name="OmniSysSchedConsole">
+        <MSBuild Projects="$(sourceRoot)\asset-track-server\Infrastructure\wfPostMessageIPC\OmniSysSchedConsole\OmniSysSchedConsole.csproj"
+				 Properties="Configuration=$(Configuration)" ContinueOnError="false" Targets="Clean;Build" />
+    </Target>  
+	
+	<!-- TODO - Can we detect an error from setup build? -->	
+	<Target Name="OmniSysSchedConsoleSetup">
+		<Exec Command='$(devenv10Path)devenv.exe "$(sourceRoot)\asset-track-server\Infrastructure\wfPostMessageIPC\wfPostMessageIPC.sln" /build $(Configuration) /project "$(sourceRoot)\asset-track-server\Infrastructure\wfPostMessageIPC\OmniSysSchedConsoleSetup\OmniSysSchedConsoleSetup.vdproj"'/>
+	</Target>
+	
+	<Target Name="CopyOmniSysSchedConsoleSetup">
+		<Copy
+			SourceFiles='$(sourceRoot)\asset-track-server\Infrastructure\wfPostMessageIPC\OmniSysSchedConsoleSetup\$(Configuration)\OmniSysSchedConsoleSetup.msi'
+			DestinationFolder='$(generated_msi_folder)'
+		/>
+    </Target>
+	
+	
+</Project>

@@ -1,0 +1,1 @@
+Install SQllite installer and select to include the libraries in the Global Assembly Cache. Then restart VS 2010.

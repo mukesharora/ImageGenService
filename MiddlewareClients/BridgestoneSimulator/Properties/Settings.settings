@@ -1,0 +1,43 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="BridgestoneSimulator.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="WorkstationName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">6c</Value>
+    </Setting>
+    <Setting Name="StationTable" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;string&gt;6c,a94b8ce0-a6d9-4eb3-8b7c-bce4b6dc4a62,0&lt;/string&gt;
+&lt;/ArrayOfString&gt;</Value>
+    </Setting>
+    <Setting Name="RackTable" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;string&gt;222911100D22040314000176,0D22040314000176&lt;/string&gt;
+  &lt;string&gt;222931100D22040314000212,0D22040314000212&lt;/string&gt;
+  &lt;string&gt;222931100D22040314000219,0D22040314000219&lt;/string&gt;
+  &lt;string&gt;222931100D22040314000206,0D22040314000206&lt;/string&gt;
+  &lt;string&gt;222911100D22040314000175,0D22040314000175&lt;/string&gt;
+  &lt;string&gt;222931100D22040314000230,0D22040314000230&lt;/string&gt;
+  &lt;string&gt;222931100D22040314000210,0D22040314000210&lt;/string&gt;
+  &lt;string&gt;222911100D22040314000152,0D22040314000152&lt;/string&gt;
+  &lt;string&gt;222911100D22040314000153,0D22040314000153&lt;/string&gt;
+  &lt;string&gt;222911100D22040314000154,0D22040314000154&lt;/string&gt;
+  &lt;string&gt;222911100D22040314000155,0D22040314000155&lt;/string&gt;
+  &lt;string&gt;222911100D22040314000156,0D22040314000156&lt;/string&gt;
+  &lt;string&gt;222931100D22040314000589,0D22040314000589&lt;/string&gt;
+  &lt;string&gt;222911100D22040314000173,0D22040314000173&lt;/string&gt;
+&lt;/ArrayOfString&gt;</Value>
+    </Setting>
+    <Setting Name="CALCManAddress" Type="System.String" Scope="User">
+      <Value Profile="(Default)">localhost:3000</Value>
+    </Setting>
+    <Setting Name="ImageGenAddress" Type="System.String" Scope="User">
+      <Value Profile="(Default)">localhost:30525</Value>
+    </Setting>
+    <Setting Name="RFIDReaderAddress" Type="System.String" Scope="User">
+      <Value Profile="(Default)">localhost:4000</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

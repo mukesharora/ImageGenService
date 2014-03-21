@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="*" Name="ClientConfiguratorSetup" Language="1033" Version="1.0.0.0" Manufacturer="Omni-ID" UpgradeCode="ce83cff5-de5e-424b-8291-4b1c84812b8b">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate EmbedCab="yes"/>
+
+		<Feature Id="ProductFeature" Title="ClientConfiguratorSetup" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+      <Feature Id="BinariesFeature" Title="Binaries" Display="expand"/>
+    </Feature>
+	</Product>
+
+	<Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLROOTFOLDER" Name="Omni-id">
+          <Directory Id="ClientConfigBinariesBinariesFolder" Name="ClientConfigurator"/>
+        </Directory>
+      </Directory>      
+
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ProgramMenuSubfolder" Name="Omni-ID">
+          <Component Id="ApplicationShortcuts" Guid="E6B0C701-A054-43A3-AF27-68251D537396">
+            <Shortcut Id="ApplicationShortcut1" Name="Middleware Client Configurator" Description="Middleware Client Configurator"
+                      Target="[ClientConfigBinariesBinariesFolder]ClientConfigurator.exe" WorkingDirectory="INSTALLDIR"/>
+            <RegistryValue Root="HKCU" Key="Software\Omni=ID\Middleware Client Configurator"
+                      Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+            <RemoveFolder Id="ProgramMenuSubfolder" On="uninstall"/>
+          </Component>
+        </Directory>
+      </Directory>      
+	</Directory>
+	</Fragment>
+
+  <Fragment>
+		<ComponentGroup Id="ProductComponents" Directory="ClientConfigBinariesBinariesFolder">
+      <Component  Id="ProductComponent" Guid="3D41EF57-CA45-4b96-BA30-B02D4488B491">
+        <CreateFolder Directory="ClientConfigBinariesBinariesFolder" />
+			</Component>
+		</ComponentGroup>
+  
+    <FeatureRef Id="BinariesFeature">
+      <Feature Id="ImageGenFeature" Title="Client config binaries" Description="Client config binaries" Level="1" >
+        <ComponentGroupRef Id="ClientConfigBinariesComponent" />
+        <ComponentRef Id="ApplicationShortcuts"/>
+      </Feature>
+    </FeatureRef>
+  </Fragment>  
+  
+</Wix>

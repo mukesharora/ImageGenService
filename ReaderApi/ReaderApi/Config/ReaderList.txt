@@ -1,0 +1,2 @@
+﻿speedwayr-10-53-7D.local,LineA,1000,20,20
+speedwayr-10-A1-D9.local,LineB,150,15,15

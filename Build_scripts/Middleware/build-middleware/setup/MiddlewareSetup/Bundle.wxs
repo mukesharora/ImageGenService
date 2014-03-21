@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:bal="http://schemas.microsoft.com/wix/BalExtension">
+  
+	<Bundle Name="Omni-ID Middleware" Version="$(var.MiddlewareVersion)" Manufacturer="Omni-ID" UpgradeCode="e1aa07d1-c6ba-4a2d-b805-6b692a7701cc">
+
+
+    <BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.RtfLicense">
+      <bal:WixStandardBootstrapperApplication
+            LicenseFile="license.rtf" SuppressOptionsUI="yes"
+            LogoFile="OmniLogo.jpg"/>
+    </BootstrapperApplicationRef> 
+        
+		<Chain>
+			<!-- Chained packages -->
+      <!--
+      <MsiPackage SourceFile="$(var.DatabaseSetup.TargetPath)" DisplayInternalUI="yes" Visible="yes">
+        <MsiProperty Name="ForcePerMachine" Value="no"/>
+      </MsiPackage>      
+      -->
+
+      <MsiPackage SourceFile=".\Generated_msi\OmniLogServerSetup.msi" >
+        <MsiProperty Name="ForcePerMachine" Value="no"/>
+      </MsiPackage>
+
+      <MsiPackage SourceFile=".\Generated_msi\OmniSysSchedConsoleSetup.msi">
+        <MsiProperty Name="ForcePerMachine" Value="no"/>
+      </MsiPackage>
+
+      <MsiPackage SourceFile=".\Generated_msi\ImageGenSetup.msi">
+        <MsiProperty Name="ForcePerMachine" Value="no"/>
+      </MsiPackage>
+      
+      <MsiPackage SourceFile=".\Generated_msi\OmniImpinjReaderSetup.msi">
+        <MsiProperty Name="ForcePerMachine" Value="no"/>
+      </MsiPackage>
+
+      <MsiPackage SourceFile=".\Generated_msi\CALCManServiceInstaller.msi">
+        <MsiProperty Name="ForcePerMachine" Value="no"/>
+      </MsiPackage>
+
+      <MsiPackage SourceFile=".\Generated_msi\OmniImportConnectionStringSetup.msi">
+        <MsiProperty Name="ForcePerMachine" Value="no"/>
+      </MsiPackage>
+
+      <MsiPackage SourceFile=".\Generated_msi\ClientConfiguratorSetup.msi">
+        <MsiProperty Name="ForcePerMachine" Value="no"/>
+      </MsiPackage>      
+
+      <MsiPackage SourceFile="$(var.MiddlewareFiles.TargetPath)">
+        <MsiProperty Name="ForcePerMachine" Value="no"/>
+      </MsiPackage>
+
+    </Chain>
+	</Bundle>
+</Wix>

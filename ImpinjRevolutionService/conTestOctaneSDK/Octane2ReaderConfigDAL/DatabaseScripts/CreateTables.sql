@@ -1,0 +1,141 @@
+--Create tables for RFID Service Configuration database
+--Sqlite database
+CREATE TABLE [AssetType](
+	[ID] INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
+	[TypeName] NVARCHAR(100) NOT NULL,
+	[TypeDescription] NVARCHAR(250) NULL,
+	[UserName] NVARCHAR(50) NULL,
+	[UpdateDate] DATETIME NULL,
+	[Version] DATETIME NULL
+);	
+
+CREATE TABLE [Asset](
+	[ID] INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
+	[FK_ID_AssetType] INTEGER REFERENCES AssetType(ID) NOT NULL,
+	[FK_ID_Location] INTEGER NULL,
+	[SummaryName] NVARCHAR(100) NOT NULL,
+	[Description] NVARCHAR(250) NULL,
+	[Latitude] FLOAT NULL,
+	[Longitude] FLOAT NULL,
+	[Elevation] FLOAT NULL,
+	[UserName] NVARCHAR(50) NULL,
+	[UpdateDate] DATETIME NULL,
+	[FK_ID_ExpectedLocation] INTEGER NULL,
+	[FK_ID_LocationTrackingStatus] INTEGER NULL,
+	[FK_ID_AssetStatus] INTEGER NULL,
+	[ForeignUID] NVARCHAR(512) NULL,
+	[Version] DATETIME NULL
+);	
+	
+CREATE TABLE [ConnectedDevices](
+	[FK_ID_Asset] INTEGER REFERENCES Asset(ID) NOT NULL,
+	[Name] NVARCHAR(100) NULL,	
+	[Model] NVARCHAR(100) NULL,
+	[Version] NVARCHAR(100) NULL,
+	[Password] NVARCHAR(100) NULL,
+	[Description] NVARCHAR(250) NULL,
+	[IsDummy] BOOLEAN DEFAULT '0' NULL,
+	PRIMARY KEY(FK_ID_Asset)
+);	
+
+CREATE TABLE [DynamicAttributeRawType](
+	[ID] INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
+	[RawType] NVARCHAR(50) NOT NULL,
+	[Version] DATETIME NULL
+);
+
+CREATE TABLE [DynamicAttributeType](
+	[ID] INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
+	[TypeName] NVARCHAR(100) NOT NULL,
+	[ValidationRegex] NVARCHAR(100) NULL,
+	[Description] NVARCHAR(250) NULL,
+	[FieldType] NVARCHAR(50) NULL,
+	[UserName] NVARCHAR(50) NULL,
+	[UpdateDate] DATETIME NULL,
+	[FK_ID_DynamicAttributeRawType] INTEGER REFERENCES DynamicAttributeRawType(ID) NOT NULL,
+	[Version] DATETIME NULL
+);
+	
+CREATE TABLE [DynamicAttributeEnums](
+	[ID] INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
+	[FK_ID_DynamicAttributeType] INTEGER REFERENCES DynamicAttributeType(ID) NOT NULL,
+	[Value] NVARCHAR(1024) NOT NULL,
+	[UserName] NVARCHAR(50) NULL,
+	[UpdateDate] DATETIME NULL,
+	[Version] DATETIME NULL
+);
+
+CREATE TABLE [AssetTypeDynamicAttributes](
+	[ID] INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
+	[FK_ID_AssetType] INTEGER REFERENCES AssetType(ID) NOT NULL,
+	[FK_ID_DynamicAttributeType] INTEGER REFERENCES DynamicAttributeType(ID) NOT NULL,
+	[Name] NVARCHAR(100) NOT NULL,
+	[Description] NVARCHAR(250) NULL,
+	[DefaultValue] NVARCHAR(1024) NULL,
+	[UserName] NVARCHAR(50) NULL,
+	[UpdateDate] DATETIME NULL,
+	[IsNullable] BOOLEAN DEFAULT '0' NOT NULL,
+	[Version] DATETIME NULL
+);	
+	
+CREATE TABLE [AssetTypeDynamicAttributeValues](
+	[ID] INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
+	[FK_ID_AssetTypeDynamicAttribute] INTEGER REFERENCES AssetTypeDynamicAttributes(ID) NOT NULL,
+	[Value] NVARCHAR(1024) NOT NULL,
+	[FK_ID_Asset] INTEGER NULL,
+	[UserName] NVARCHAR(50) NULL,
+	[UpdateDate] DATETIME NULL,
+	[Version] DATETIME NULL
+);	
+
+CREATE TABLE [AssetTypeDynamicAttributeDefaultEnum](
+	[FK_ID_AssetTypeDynamicAttribute] INTEGER REFERENCES AssetTypeDynamicAttributes(ID) NOT NULL,
+	[FK_ID_DynamicAttributeEnum] INTEGER REFERENCES DynamicAttributeEnums(ID) NOT NULL,
+	[UserName] NVARCHAR(50) NULL,
+	[UpdateDate] DATETIME NULL,
+	PRIMARY KEY(FK_ID_AssetTypeDynamicAttribute, FK_ID_DynamicAttributeEnum)
+);
+	
+CREATE TABLE [AssetTypeDynamicAttributeEnum](
+	[FK_ID_AssetTypeDynamicAttributeValue] INTEGER REFERENCES AssetTypeDynamicAttributeValues(ID) NOT NULL,
+	[FK_ID_DynamicAttributeEnum] INTEGER REFERENCES DynamicAttributeEnums(ID) NOT NULL,
+	PRIMARY KEY(FK_ID_AssetTypeDynamicAttributeValue ASC, FK_ID_DynamicAttributeEnum ASC)
+);	
+
+/*
+--old structure of database
+CREATE TABLE [Reader] (
+[ID] INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
+[HostName] NVARCHAR(255)  UNIQUE NOT NULL,
+[CurrentStatus] NVARCHAR(60)  NULL,
+[LastPing] DATETIME  NULL,
+[ReaderID] NVARCHAR(60)  UNIQUE NULL,
+[IsDefault] BOOLEAN DEFAULT '0' NULL
+);
+CREATE TABLE [Antenna] (
+[ID] INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
+[Port] INTEGER NOT NULL,
+[TxPowerIndBm] INTEGER NOT NULL,
+[FK_ID_Reader] INTEGER REFERENCES Reader(ID) NOT NULL,
+[IsDefault] BOOLEAN DEFAULT '0' NULL
+);
+CREATE TABLE [ConfigItemGroup] (
+[ID] INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
+[Name] NVARCHAR(60)  UNIQUE NOT NULL,
+[Description] NVARCHAR(60)  NULL
+);
+CREATE TABLE [ConfigItemType] (
+[ID] INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
+[Name] NVARCHAR(60)  UNIQUE NOT NULL,
+[Description] NVARCHAR(60)  NULL,
+[RegEx] NVARCHAR(255)  NULL
+);
+CREATE TABLE [ConfigItem] (
+[ID] INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
+[Name] NVARCHAR(60)  NOT NULL,
+[Value] NVARCHAR(255)  NULL,
+[FK_ID_CONFIG_ITEM_GROUP] INTEGER REFERENCES ConfigItemGroup(ID) NOT NULL,
+[FK_ID_CONFIG_ITEM_TYPE] INTEGER REFERENCES ConfigItemType(ID) NOT NULL,
+[FK_ID_Reader] INTEGER REFERENCES Reader(ID) NOT NULL
+);
+*/

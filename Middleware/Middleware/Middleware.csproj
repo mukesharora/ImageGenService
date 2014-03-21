@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{BEFF3694-FEAE-4366-9786-C411517C4DAA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Middleware</RootNamespace>
+    <AssemblyName>Middleware</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;REVOLUTION_SERVICE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\Middleware.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;REVOLUTION_SERVICE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CALCManager.Models.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libraries\CALCManagerClient\CALCManager.Models.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="ImageGenModels">
+      <HintPath>..\Libraries\ImageGen\ImageGenModels.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\Libraries\log4net\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RESTClients">
+      <HintPath>..\Libraries\CALCManagerClient\RESTClients.dll</HintPath>
+    </Reference>
+    <Reference Include="RFIDWebApiService, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libraries\RevolutionService\RFIDWebApiService.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libraries\CALCManagerClient\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="client\commands\OmniPageDeleteCommand.cs" />
+    <Compile Include="client\commands\OmniAPICommand.cs" />
+    <Compile Include="client\commands\OmniGPIStateReportCommand.cs" />
+    <Compile Include="client\commands\OmniGPOStateChangeCommand.cs" />
+    <Compile Include="client\commands\OmniGPOStateReportCommand.cs" />
+    <Compile Include="client\commands\OmniImageUpdateCommand.cs" />
+    <Compile Include="client\commands\OmniImageUrlUpdateCommand.cs" />
+    <Compile Include="client\commands\OmniPageChangeCommand.cs" />
+    <Compile Include="client\commands\OmniRFIDReaderCommand.cs" />
+    <Compile Include="client\commands\OmniSystemMetadataInfoRequestCommand.cs" />
+    <Compile Include="client\commands\OmniVisualTagInfoRequestCommand.cs" />
+    <Compile Include="client\messages\OmniPageDeleteCommandResultEvent.cs" />
+    <Compile Include="client\messages\OmniAPIMessage.cs" />
+    <Compile Include="client\messages\OmniCalcCommandResultEvent.cs" />
+    <Compile Include="client\messages\OmniCommandErrorResultEvent.cs" />
+    <Compile Include="client\messages\OmniGPIEventMessage.cs" />
+    <Compile Include="client\messages\OmniGPIStateReportCommandResultEvent.cs" />
+    <Compile Include="client\messages\OmniGPOStateChangeCommandResultEvent.cs" />
+    <Compile Include="client\messages\OmniGPOStateReportCommandResultEvent.cs" />
+    <Compile Include="client\messages\OmniImageUpdateCommandResultEvent.cs" />
+    <Compile Include="client\messages\OmniPageChangeCommandResultEvent.cs" />
+    <Compile Include="client\messages\OmniRFIDReaderCommandResultEvent.cs" />
+    <Compile Include="client\messages\OmniSystemErrorEvent.cs" />
+    <Compile Include="client\messages\OmniSystemInformationEvent.cs" />
+    <Compile Include="client\messages\OmniSystemMetadataInfoRequestResultEvent.cs" />
+    <Compile Include="client\messages\OmniVisualTagAnnounceEvent.cs" />
+    <Compile Include="client\messages\OmniVisualTagHealthReportMessage.cs" />
+    <Compile Include="client\messages\OmniRFIDDetectionMessage.cs" />
+    <Compile Include="client\messages\OmniVisualTagInfoRequestResultEvent.cs" />
+    <Compile Include="client\MiddlewareCommandModel.cs" />
+    <Compile Include="client\OmniMiddlewareClient.cs" />
+    <Compile Include="GPIOPortState.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SystemMetadata.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <EmbeddedResource Include="log4net.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <None Include="log4net.config.override">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\CommonLib\MessageQueueing\MSMQLab\OmniMQLib\OmniMQLib.csproj">
+      <Project>{DF6E215B-3005-4885-8BAB-1F2C19FB8CB5}</Project>
+      <Name>OmniMQLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\CommonLib\OmniMiddlewareMessage\OmniMiddlewareMessage\OmniMiddlewareMessages.csproj">
+      <Project>{CFD182D1-A149-4B3E-99F8-6C472CEB7A77}</Project>
+      <Name>OmniMiddlewareMessages</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

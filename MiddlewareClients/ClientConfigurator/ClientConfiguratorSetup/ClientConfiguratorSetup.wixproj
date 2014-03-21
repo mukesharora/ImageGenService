@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<?define ClientConfigBinariesFolder = "C:\Users\bhuzyk\Documents\GitHub\ImageGen\MiddlewareClients\ClientConfigurator\bin\Debug" ?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>3.7</ProductVersion>
+    <ProjectGuid>78f3950d-19ac-48be-897a-4d67a8080ad9</ProjectGuid>
+    <SchemaVersion>2.0</SchemaVersion>
+    <OutputName>ClientConfiguratorSetup</OutputName>
+    <OutputType>Package</OutputType>
+    <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' AND '$(MSBuildExtensionsPath32)' != '' ">$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
+    <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+
+	<!--
+	<DefineConstants>Debug;BinariesFolder=C:\Users\bhuzyk\Documents\GitHub\ImageGen\MiddlewareClients\ClientConfigurator\bin\Debug;</DefineConstants>
+	-->
+
+    <DefineConstants>Debug;BinariesFolder=$(ClientConfigBinariesFolder);</DefineConstants>
+
+
+    <WixVariables>
+    </WixVariables>
+    <CompilerAdditionalOptions>
+    </CompilerAdditionalOptions>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Product.wxs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Generated_Code" />
+    <Compile Include="Generated_Code\ClientConfigBinaries.wxs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\asset-track-server\Infrastructure\wfPostMessageIPC\OmniCfgSvcBLL\OmniCfgSvcBLL.csproj">
+      <Name>OmniCfgSvcBLL</Name>
+      <Project>{4f594eca-ca1c-4815-a3c5-da72f9b04c49}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\asset-track-server\Infrastructure\wfPostMessageIPC\OmniCfgSvcSQLSDAL\OmniCfgSvcSQLSDAL.csproj">
+      <Name>OmniCfgSvcSQLSDAL</Name>
+      <Project>{42473d97-ca73-4a8c-98f2-f3d56a7b5ab9}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\asset-track-server\Infrastructure\wfPostMessageIPC\OmniSysSchedSQLSDAL\OmniSysSchedSQLSDAL.csproj">
+      <Name>OmniSysSchedSQLSDAL</Name>
+      <Project>{a5dde92e-0209-4930-86e8-06db1f0703fa}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\asset-track-server\Infrastructure\wfPostMessageIPC\OmniWinIPCLib\OmniWinIPCLib.csproj">
+      <Name>OmniWinIPCLib</Name>
+      <Project>{8d39604b-0f6a-48aa-9cec-4daf645c17fd}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ClientConfigurator\ClientConfigurator.csproj">
+      <Name>ClientConfigurator</Name>
+      <Project>{3a036542-9a6f-4587-8c08-1a98488b4c37}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(WixTargetsPath)" />
+  <Target Name="BeforeBuild">
+    
+	<!--
+    <HeatDirectory PreprocessorVariable="var.BinariesFolder" OutputFile="Generated_Code\ClientConfigBinaries.wxs" Directory="C:\Users\bhuzyk\Documents\GitHub\ImageGen\MiddlewareClients\ClientConfigurator\bin\Debug" DirectoryRefId="ClientConfigBinariesBinariesFolder" ComponentGroupName="ClientConfigBinariesComponent" GenerateGuidsNow="true" SuppressCom="true" SuppressFragments="true" SuppressRegistry="true" SuppressRootDirectory="true" ToolPath="$(WixToolPath)" />
+	-->
+	
+	
+    <HeatDirectory PreprocessorVariable="var.BinariesFolder" OutputFile="Generated_Code\ClientConfigBinaries.wxs" Directory="$(ClientConfigBinariesFolder)" DirectoryRefId="ClientConfigBinariesBinariesFolder" ComponentGroupName="ClientConfigBinariesComponent" GenerateGuidsNow="true" SuppressCom="true" SuppressFragments="true" SuppressRegistry="true" SuppressRootDirectory="true" ToolPath="$(WixToolPath)" />
+	
+  </Target>
+  <PropertyGroup>
+    <PreBuildEvent />
+  </PropertyGroup>
+  <!--
+	To modify your build process, add your task inside one of the targets below and uncomment it.
+	Other similar extension points exist, see Wix.targets.
+	<Target Name="BeforeBuild">
+	</Target>
+	<Target Name="AfterBuild">
+	</Target>
+	-->
+</Project>

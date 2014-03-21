@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project
+    xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+    ToolsVersion="4.0"
+    DefaultTargets="WriteVersionFile">
+
+    <Target Name="WriteVersionFile">
+        <WriteLinesToFile
+            File="$(sourceRoot)\OmniMiddlewareVersion.txt"
+            Lines="MiddlewareVersion $(version)"
+            Overwrite="true"/>
+    </Target>  
+	
+	
+	
+</Project>

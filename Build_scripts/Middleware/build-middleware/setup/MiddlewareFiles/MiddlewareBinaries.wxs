@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Fragment>
+        <DirectoryRef Id="MiddlewareBinariesFolder">
+            <Component Id="cmpAB1D77274F44D19E0BCAB66DBA7B6DCF" Guid="{D55C2000-100E-467B-A2AE-88484A26B5F2}">
+                <File Id="filF78E25C4A475BD4C64565919AC6F47E4" KeyPath="yes" Source="SourceDir\CALCManager.Models.Web.dll" />
+            </Component>
+            <Component Id="cmpEB92636CAE1268652235D2DEB926EF25" Guid="{27ABEF7C-0A88-4D17-8904-1BFA8DA9376D}">
+                <File Id="fil2ADCE30181E33327CED8CD31CC8302E4" KeyPath="yes" Source="SourceDir\CALCManager.Models.Web.pdb" />
+            </Component>
+            <Component Id="cmp1C2BD8BDDF2FCFFCB2F3E6A002DEB3EC" Guid="{ECA64051-6908-4A1D-800A-CF16E85A8D25}">
+                <File Id="fil79336557E53963F5AAC3E95CF4B71866" KeyPath="yes" Source="SourceDir\ImageGenModels.dll" />
+            </Component>
+            <Component Id="cmpA67F53D9767FA12963F2903D5528E5F2" Guid="{936115E8-693B-42FD-A453-2DF647ACFA1F}">
+                <File Id="fil01E10A5047C4514161F693D374BD09C3" KeyPath="yes" Source="SourceDir\ImageGenModels.pdb" />
+            </Component>
+            <Component Id="cmp4C0496539BFF0E1CC40C6D21E32B5D3E" Guid="{F53ED978-3148-4802-9C0E-E4DB8C7B4457}">
+                <File Id="fil68C21A5CABE06ED10AA165AEBA5AA352" KeyPath="yes" Source="SourceDir\log4net.config" />
+            </Component>
+            <Component Id="cmp808B40538F9C7D0B0DA8CC7BDBA708E9" Guid="{161E9DE6-1D1F-4B7F-85F9-7BC043B595CA}">
+                <File Id="filFF9C3E66398581B2CAAB117436EE6E88" KeyPath="yes" Source="SourceDir\log4net.dll" />
+            </Component>
+            <Component Id="cmp1C943E053B04E26AEAF0B95C2B87E6E9" Guid="{4C6AABD7-A0B5-4AE4-8B71-CE3DA9BEE9A6}">
+                <File Id="filE98471E0670C08926768D11EB65EA65D" KeyPath="yes" Source="SourceDir\Middleware.dll" />
+            </Component>
+            <Component Id="cmp9C64AC8F583CD5B7C542E683FFCA574D" Guid="{A84D78A0-FF00-480F-B7FC-2A84C46B3599}">
+                <File Id="filDCE0D5F9A0AAEE5B96E36C071C899003" KeyPath="yes" Source="SourceDir\Middleware.dll.config" />
+            </Component>
+            <Component Id="cmpA901A5E16D80F53724C32C53C2F67683" Guid="{5068A447-C964-4D78-833A-28BD4450E9E7}">
+                <File Id="filE6E4534ACCA6D2CB0CD4E9A5E1A7E8E6" KeyPath="yes" Source="SourceDir\Middleware.pdb" />
+            </Component>
+            <Component Id="cmpFB108DF7EB8DDC835D58EB9EEBB5C92F" Guid="{BFB5ACF9-73A7-4A7E-905D-3ED7E8E6F9DB}">
+                <File Id="fil8DB5A69FAE7E71D9617067D6973ABB38" KeyPath="yes" Source="SourceDir\Newtonsoft.Json.dll" />
+            </Component>
+            <Component Id="cmp5C414D7B0C0306B8E29A469A1C8E66C3" Guid="{661F1F13-BFC8-4A17-91A7-07A634AA5C14}">
+                <File Id="fil348BB8ECA651835EB3B5E646FBBC463C" KeyPath="yes" Source="SourceDir\Newtonsoft.Json.xml" />
+            </Component>
+            <Component Id="cmpBF7B7702BFE2F936321831CAE9982091" Guid="{CB6E7450-B36E-4D5A-B1E2-F07BC50E3DDF}">
+                <File Id="filF575BCCA3E1A0A1E1C123FC7AAA1005F" KeyPath="yes" Source="SourceDir\OmniMiddlewareMessages.dll" />
+            </Component>
+            <Component Id="cmp881BD402B01621B54CFA7E73D713DB96" Guid="{B25D43D5-B5B7-4120-960E-0CAFBF80B5F3}">
+                <File Id="fil8BAD6F8DDCB236BA0C017DEAD1EDB247" KeyPath="yes" Source="SourceDir\OmniMiddlewareMessages.pdb" />
+            </Component>
+            <Component Id="cmp7CE6FBF4DAF4CB09C1E4382B6B0AFB9A" Guid="{7A2BFDD2-DBCC-4CA1-BD56-CB2AA295616F}">
+                <File Id="fil18D2DE276C87100A399277CE9667214B" KeyPath="yes" Source="SourceDir\OmniMQLib.dll" />
+            </Component>
+            <Component Id="cmp34840F28083F211D879E7957A1C3F77C" Guid="{A07147FF-9B37-4CFB-8679-841CE834AA1C}">
+                <File Id="fil8265BB51E913FA39A610E65B1B1BF2F2" KeyPath="yes" Source="SourceDir\OmniMQLib.pdb" />
+            </Component>
+            <Component Id="cmpA72C46E5E97A958F3CA246C13EEC315F" Guid="{2A63DEBF-4C57-41EC-B13D-85A905B1BCF5}">
+                <File Id="filD6ED0C105CCBCE42D64DE1C7899509CD" KeyPath="yes" Source="SourceDir\RESTClients.dll" />
+            </Component>
+            <Component Id="cmpA0E91B473C054E4870031B6721BD7C66" Guid="{41045F5E-8727-4A67-A023-25BAF58388FB}">
+                <File Id="filC2FBD5045DCDE35E87574FB2C44EC831" KeyPath="yes" Source="SourceDir\RFIDWebApiService.dll" />
+            </Component>
+            <Component Id="cmpE2C5C9694A7C58420983858D110D3CCC" Guid="{DFB7D1C2-FFC7-4532-99BA-0B22698E9713}">
+                <File Id="filEF6ED67C6732DAB1D691675FFB372A07" KeyPath="yes" Source="SourceDir\System.Net.Http.dll" />
+            </Component>
+            <Component Id="cmp1AC80F49B6A7E4465EAE2F7C876EDE8C" Guid="{6DA5ED02-AB59-48EF-A8AB-F871287D44B4}">
+                <File Id="fil9A6C6A28E9B6C03CCB03B452BCD5F2EF" KeyPath="yes" Source="SourceDir\System.Net.Http.Formatting.dll" />
+            </Component>
+            <Component Id="cmpB2BE1AA318386A9454D4794CDDCFF3C7" Guid="{C139F55E-1544-4FC8-A550-B4D3A943145F}">
+                <File Id="fil259B1F4EE054A4E539EDF4AF567D60A3" KeyPath="yes" Source="SourceDir\System.Net.Http.Formatting.xml" />
+            </Component>
+            <Component Id="cmpA73A2722FBDCF9EDD53E569802A8B70A" Guid="{F46D6F80-C468-46BC-8F01-3F80A9C7471A}">
+                <File Id="fil00E14E26755B0EAD9592E0BD09574866" KeyPath="yes" Source="SourceDir\System.Net.Http.xml" />
+            </Component>
+            <Component Id="cmpE7C9F85E13E5911B059C7AEFDEBBF356" Guid="{52224455-9908-4512-94A1-8BE8BA9CE710}">
+                <File Id="fil2FCE21E8CF5F6A668FB6525074AF6D2F" KeyPath="yes" Source="SourceDir\System.Web.Http.dll" />
+            </Component>
+            <Component Id="cmp4F79F0AF5F3C0B279EE296D4A197B1DE" Guid="{FC5E0334-BB4E-4AF7-8E4D-7265A48EF7C9}">
+                <File Id="fil27187EC9CE5EC5C0EAD0382CB44C41B1" KeyPath="yes" Source="SourceDir\System.Web.Http.SelfHost.dll" />
+            </Component>
+            <Component Id="cmp0D33E747A1D7A8E90805B1870E6E9328" Guid="{1F7D6A07-1D48-4D32-BDA8-104A5423C048}">
+                <File Id="filFF92A24785CEE925112EE153C7C22903" KeyPath="yes" Source="SourceDir\System.Web.Http.SelfHost.xml" />
+            </Component>
+            <Component Id="cmpEC700E7F2ACC499D6F2DFA9AF15C59EE" Guid="{1FA2C8A7-E5FD-435B-BFA5-BB8D4659AC9A}">
+                <File Id="filD73E7B59B33E9AFE47561B048DDB13D0" KeyPath="yes" Source="SourceDir\System.Web.Http.WebHost.dll" />
+            </Component>
+            <Component Id="cmpAC9EA6FC0A19368CAEC9378E2E77CB84" Guid="{DCC04F91-6C9B-4A23-A81C-E3D948ACFAB8}">
+                <File Id="fil4DF2CA9E259DBA0D713F9922363CF357" KeyPath="yes" Source="SourceDir\System.Web.Http.WebHost.xml" />
+            </Component>
+            <Component Id="cmp3E8C22DB39FD03275F35BD0C63E876D5" Guid="{D2E8E138-C28F-42D4-8279-45754CC6C09A}">
+                <File Id="fil0394862597BFD983831E95341987AE94" KeyPath="yes" Source="SourceDir\System.Web.Http.xml" />
+            </Component>
+            <Component Id="cmpCF6BE35914C5146BAAD537F5B099B2A8" Guid="{9571F78F-B54F-4AC2-B843-C1FF617B51E0}">
+                <File Id="fil8FE3C86C73B10C49A2E74F22943AA760" KeyPath="yes" Source="SourceDir\SystemMetadata.xml" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <ComponentGroup Id="MiddlewareBinariesComponent">
+            <ComponentRef Id="cmpAB1D77274F44D19E0BCAB66DBA7B6DCF" />
+            <ComponentRef Id="cmpEB92636CAE1268652235D2DEB926EF25" />
+            <ComponentRef Id="cmp1C2BD8BDDF2FCFFCB2F3E6A002DEB3EC" />
+            <ComponentRef Id="cmpA67F53D9767FA12963F2903D5528E5F2" />
+            <ComponentRef Id="cmp4C0496539BFF0E1CC40C6D21E32B5D3E" />
+            <ComponentRef Id="cmp808B40538F9C7D0B0DA8CC7BDBA708E9" />
+            <ComponentRef Id="cmp1C943E053B04E26AEAF0B95C2B87E6E9" />
+            <ComponentRef Id="cmp9C64AC8F583CD5B7C542E683FFCA574D" />
+            <ComponentRef Id="cmpA901A5E16D80F53724C32C53C2F67683" />
+            <ComponentRef Id="cmpFB108DF7EB8DDC835D58EB9EEBB5C92F" />
+            <ComponentRef Id="cmp5C414D7B0C0306B8E29A469A1C8E66C3" />
+            <ComponentRef Id="cmpBF7B7702BFE2F936321831CAE9982091" />
+            <ComponentRef Id="cmp881BD402B01621B54CFA7E73D713DB96" />
+            <ComponentRef Id="cmp7CE6FBF4DAF4CB09C1E4382B6B0AFB9A" />
+            <ComponentRef Id="cmp34840F28083F211D879E7957A1C3F77C" />
+            <ComponentRef Id="cmpA72C46E5E97A958F3CA246C13EEC315F" />
+            <ComponentRef Id="cmpA0E91B473C054E4870031B6721BD7C66" />
+            <ComponentRef Id="cmpE2C5C9694A7C58420983858D110D3CCC" />
+            <ComponentRef Id="cmp1AC80F49B6A7E4465EAE2F7C876EDE8C" />
+            <ComponentRef Id="cmpB2BE1AA318386A9454D4794CDDCFF3C7" />
+            <ComponentRef Id="cmpA73A2722FBDCF9EDD53E569802A8B70A" />
+            <ComponentRef Id="cmpE7C9F85E13E5911B059C7AEFDEBBF356" />
+            <ComponentRef Id="cmp4F79F0AF5F3C0B279EE296D4A197B1DE" />
+            <ComponentRef Id="cmp0D33E747A1D7A8E90805B1870E6E9328" />
+            <ComponentRef Id="cmpEC700E7F2ACC499D6F2DFA9AF15C59EE" />
+            <ComponentRef Id="cmpAC9EA6FC0A19368CAEC9378E2E77CB84" />
+            <ComponentRef Id="cmp3E8C22DB39FD03275F35BD0C63E876D5" />
+            <ComponentRef Id="cmpCF6BE35914C5146BAAD537F5B099B2A8" />
+        </ComponentGroup>
+    </Fragment>
+</Wix>

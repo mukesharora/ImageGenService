@@ -1,0 +1,161 @@
+Omni-ID Middleware version 1.03.1118.1
+11/18/13
+
+Current Limitations:
+1. Install tested with installs to C: drive. Installs to other drives may work but 
+   would require manual changes to the scripts in the OmniAppInsert.sql file 
+   that have path names in them.
+2. Installs to 32-bit operating systems would require manual changes to the 
+   scripts in the OmniAppInsert.sql file that have path names in them.
+
+
+Upgrade Instructions
+For Middleware v1.01.1029.0 and earlier.
+1. Remove previous "Omni-ID Middleware" version (Windows add/remove programs)
+2. Delete "C:\ProgramData\Omni-id\Middleware\Config\QueueNames.txt"
+3. Drop all of the OmniApplication_* tables in the following order (IMPORTANT: 
+   you will loose any Omni Impinj reader app settings): 
+	a. OmniApplication_Parameter
+	b. OmniApplication_ParameterCategory
+	c. OmniApplication_ParameterType
+	d. OmniApplication_Application
+	e. OmniApplication_ScheduledApps
+	f. OmniApplication_ScheduleType
+	g. OmniApplication_YesNo. 
+4. Make sure that you run the "OmniAppCreate.sql" and "OmniAppInsert.sql" commands 
+   in the steps below.
+
+   
+Prerequisites:
+1. SQL Server 2008 R2 any edition (or newer) or SQL Server 2008 Express.
+2. Microsoft .NET framework version 4.5 
+   [ http://www.microsoft.com/en-us/download/details.aspx?id=30653 ]
+
+
+Quick Start Instructions:
+1. Uninstall existing Omni-Middleware installation through control panel 
+   add/remove programs.
+
+2. Delete "C:\ProgramData\Omni-id\Middleware\Config\QueueNames.txt" if it exists.
+
+3. Turn Windows UAC (User Account Control) to off or its lowest level.
+
+4. Firewall, open up port for CALCMan.
+
+5. Optional. Install "Bonjour for Windows" if Multicast DNS support for the "Omni Impinj Reader app"
+   is desired.
+
+6. Install "Omni-IDMiddlewareSetup_xyz.exe", which installs the following components:
+	+---Program Files (x86)
+	    +---Omni-ID
+	        +---CALC Manager
+		+---ClientConfigurator
+	        +---Middleware
+	        |   +---bin			// Omni-Middle .NET assemblies
+	        |   +---dbScripts		// Initial scripts for database setup
+	        |   +---docs			// assorted Middleware documentation
+	        |   \---sample_source
+	        +---Omni Image Generator
+	        +---Omni Import Connection String
+	        +---OmniImpinjReader
+	        +---OmniLogServer
+	        \---OmniSysSchedConsole
+
+7. For new installs, execute the following database scripts in this order: [C:\Program Files (x86)\Omni-ID\Middleware\dbScripts]
+	a. CreateCALCManDB.sql
+	b. CreateCALCManStoredProcedures.sql
+	c. CreateCALCManTables.sql
+	d. InsertCALCManDB.sql
+	e. OmniAppCreate.sql
+	f. OmniAppInsert.sql
+   The scripts should completed successfully with no errors.
+
+8. Modify the C:\Program Files (x86)\OMNI-ID\CALC Manager\CALCManService.exe.config file. 
+   Set the correct database connection string in the "CALCManEntities" key.
+
+9. From the start menu, run the "Omni Import Connection String" program. Type your 
+   database connection string into the “New Connection string” text box”, 
+   and press the Import button. The program should report a success status. 
+   An example database connection string is (no quotes): 
+   "Data Source=.;Initial Catalog=CALCMan;Integrated Security=True;"
+
+10. From the start menu, run the "Middleware Client Configurator" program. 
+    Use the "Add new client" button to configure Middleware clients. In most 
+	cases the host name and client host names will be "localhost". The OmniMiddlewareClient
+	constructor and app.config values will be generated for each Middleware client.	Changes 
+	to the configuration will take effect when the associated service/app is restarted.
+	
+	Current restrictions:
+	1. All instances of the Omni Impinj reader app must be run on the computer that the 
+	   OmniSystemScheduler is running on.
+	2. Host name fields should be set to localhost if the Middleware client is 
+	   executing on the same machine. If not, it should be set to the machine name
+	   the service or app is running on.
+	3. Client host names should be set to localhost if the Middleware client is 
+	   executing on the same machine. If not, it should be set to the machine name
+	   the service or app is running on.
+	4. It may not be possible to click on a control with a validation error to gain focus.
+		Workaround: Tab to the control with the keyboard.
+	   
+	   Example 1: CALCMan is running on the same computer as the Middleware client.
+	              CALCMan host name: "localhost"
+				  CALCMan client host name: "localhost"
+				  
+	   Example 2: CALCMan is running a  computer named "MW_Server" and the the Middleware client
+				  is running on a computer named "MW_Client"
+	              CALCMan host name: "MW_Server"
+				  CALCMan client host name: "MW_Client"   
+
+11. Make sure that the "C:\Program Files (x86)\Omni-ID\Middleware\bin\log4net.config" is present in
+    the directory that your applications assemblies are located.
+
+12. Reboot computer, to start services and startup programs.
+
+13. Special OmniImpinj app setup instructions:
+    a. Click the "Configure Reader Host" button.
+    b. Press OK on the "No Interface Settings Found" dialog.
+    c. Press "Save Changes" on the "Configure / Create Reader Host Configurations"
+    d. Setup a new reader configuration, press "Configure Readers", then Press 
+	   "Add New Reader"
+
+
+-------------------------------------------------------------------------------------------
+11/18/13 Version 1.03.1118.1
+o OmniImpinjReaderApp: Cleaned up Impinj logging, some errors are now info
+o OmniImpinjReaderApp: Log device address (ip or DNS multicast)
+o Middleware API: support for device address through Middleware SDK, updated SDK document
+o LogServer: Logs to C:\ProgramData\Omni-id\LogServer\Logs
+o Middleware API BREAKING CHANGE: Added DeviceAddress property to some SDK RFID event classes.
+  Device address was incorrectly being reported in the DeviceName property.
+
+-------------------------------------------------------------------------------------------
+11/11/13 Version 1.02.1111.1
+o OmniImpinjReaderApp: Added ability to filter monitor output by readers. 
+o Middleware API. Updated OmniImageUrlUpdateCommand ImageUrl parameter documentation.
+o Support for multiple Impinj Reader apps.
+o New client Middleware Client Configurator utility.
+
+
+-------------------------------------------------------------------------------------------
+10/29/13 Version 1.01.1029.0
+o Added clientGuid to OmniMiddlewareClient constructor. Queue names are no longer claimed but 
+  still must be listed in the QueuNames.txt file and CALCMan database.
+
+-------------------------------------------------------------------------------------------
+10/28/13 Version 1.01.1028.0
+o OmniImpinj App: Removed "RestartReader" from GUI 
+o OmniImpinj App:  Removed "Refresh Readers" button, reader list is now automatically refreshed when readers added/deleted/or changed 
+o OmniImpinj App: Changed wait cursor logic on startup and on return from configure readers dialog
+o MiddlewareAPI: Added new 0 parameter constructor. Updated API doc. 
+o Installer: Fixed Middleware build scripts to properly inject version for CALCMan and ImageGen service.
+o Middleware API. Updated API doc. Updated system block diagram section to include actual software component names.
+o Middleware API. Updated API doc. Updated OmniImageUpdateCommand to include CoralType field.
+o Middleware API. Updated API doc. Updated OmniRFIDDetectionMessage fields.
+o Middleware API. Updated API doc. Marked some features not implemented.
+
+-------------------------------------------------------------------------------------------
+10/22/13 Version 1.01.1022.0
+
+* Modified OmniAppInsert.sql, removed all sample Impinj reader definitions
+-------------------------------------------------------------------------------------------
+ 
