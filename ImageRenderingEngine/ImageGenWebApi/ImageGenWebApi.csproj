@@ -115,9 +115,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="log4net.config">
+    <EmbeddedResource Include="log4net.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </EmbeddedResource>
     <None Include="App.config" />
     <None Include="ImageGenWebApi_TemporaryKey.pfx" />
     <None Include="packages.config" />
